@@ -325,11 +325,12 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .tracker .steps li:before{color:#C9694A}
 .tracker .steps b{color:var(--white)}
 .tracker .steps span{color:var(--trav);opacity:.8}
-.tr-phones{background:#5A4634;position:relative;overflow:hidden;min-height:560px;background-image:radial-gradient(ellipse at 50% 110%,rgba(201,105,74,.35),transparent 60%)}
-.tr-phones img{position:absolute;width:min(46%,330px);height:auto;filter:drop-shadow(0 40px 60px rgba(0,0,0,.45))}
-.tr-phones .ph1{left:12%;top:8%;transform:rotate(-4deg)}
-.tr-phones .ph2{right:10%;top:22%;transform:rotate(3deg)}
-@media(max-width:900px){.tr-grid{grid-template-columns:1fr}.tr-text{padding:72px 32px}.tr-phones{min-height:640px}.tr-phones img{width:52%}.tr-phones .ph1{left:4%;top:6%}.tr-phones .ph2{right:4%;top:24%}}
+.tr-phones{background:#5A4634;position:relative;overflow:hidden;min-height:620px;perspective:1400px;background-image:radial-gradient(ellipse at 50% 110%,rgba(201,105,74,.35),transparent 60%)}
+.tr-phones img{position:absolute;width:min(44%,320px);height:auto;filter:drop-shadow(0 40px 60px rgba(0,0,0,.45));will-change:transform;transform-style:preserve-3d;backface-visibility:hidden}
+.tr-phones .ph1{left:11%;top:50%;transform:translateY(-50%)}
+.tr-phones .ph2{right:9%;top:50%;transform:translateY(-50%)}
+.tr-glow{position:absolute;left:50%;top:55%;width:60%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(201,105,74,.45),transparent 65%);transform:translate(-50%,-50%);filter:blur(10px);pointer-events:none}
+@media(max-width:900px){.tr-grid{grid-template-columns:1fr}.tr-text{padding:72px 32px}.tr-phones{min-height:680px}.tr-phones img{width:50%}.tr-phones .ph1{left:3%}.tr-phones .ph2{right:3%}}
 
 /* ===== ERA-style scroll effects ===== */
 .pin-hero{height:230svh;position:relative}
@@ -746,6 +747,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       <p class="tiny" style="color:var(--trav);opacity:.7" data-i18n="t.ill">Pantallas ilustrativas de la aplicación</p>
     </div>
     <div class="tr-phones rv">
+      <div class="tr-glow"></div>
       <img class="ph1" src="img/vt-home.png" alt="VillaTracker · inicio">
       <img class="ph2" src="img/vt-docs.png" alt="VillaTracker · actas y documentos">
     </div>
@@ -1101,6 +1103,20 @@ document.querySelectorAll('[data-img]').forEach(box=>{
  const t=()=>{const on=scrollY>innerHeight*.9;a.classList.toggle('show',on)};
  addEventListener('scroll',t,{passive:true});t();
  document.getElementById('actGallery').onclick=()=>{const first=document.querySelector('.mosaic .frame img');if(first)first.click();else location.hash='#spaces'};
+})();
+// VillaTracker phones: scroll-driven 3D rotation
+(function(){const box=document.querySelector('.tr-phones');if(!box)return;const a=box.querySelector('.ph1'),b=box.querySelector('.ph2');
+ const clamp=(v,x,y)=>Math.max(x,Math.min(y,v));
+ function tick(){const r=box.getBoundingClientRect();const vh=innerHeight;
+  const p=clamp((vh-r.top)/(vh+r.height),0,1);          // 0 entering -> 1 leaving
+  const e=1-Math.pow(1-clamp(p/.55,0,1),3);              // entrance ease
+  const d=(p-.5);                                        // -0.5..0.5 around centre
+  const inY=(1-e)*160;
+  a.style.transform=`translateY(calc(-50% + ${inY+ d*-70}px)) translateX(${(1-e)*-40}px) rotateY(${18-36*p}deg) rotateZ(${-6+4*p}deg) rotateX(${d*6}deg)`;
+  b.style.transform=`translateY(calc(-50% + ${inY*1.25+ d*60}px)) translateX(${(1-e)*40}px) rotateY(${-22+40*p}deg) rotateZ(${5-3*p}deg) rotateX(${d*-5}deg) translateZ(40px)`;
+  a.style.opacity=b.style.opacity=clamp(e*1.4,0,1);
+ }
+ addEventListener('scroll',()=>requestAnimationFrame(tick),{passive:true});addEventListener('resize',tick);setTimeout(tick,100);
 })();
 // count-up
 (function(){const els=[...document.querySelectorAll('[data-count]')];if(!els.length)return;
