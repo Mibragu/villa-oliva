@@ -373,12 +373,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 /* action bar + fab */
 .actions{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(120px);display:flex;gap:8px;z-index:60;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
 .actions.show{transform:translateX(-50%)}
+.pill-main{background:var(--ink);color:var(--plaster);display:flex;align-items:center;gap:10px;padding:16px 30px;font-size:12px;box-shadow:0 16px 40px rgba(43,38,32,.3)}.pill-main:hover{background:var(--bronze)}
 .pill{background:rgba(246,241,233,.85);backdrop-filter:blur(12px);border:1px solid rgba(43,38,32,.15);color:var(--ink);font:inherit;font-size:11px;letter-spacing:.22em;text-transform:uppercase;padding:13px 22px;border-radius:999px;cursor:pointer;transition:background .2s,color .2s;box-shadow:0 10px 30px rgba(43,38,32,.12)}
 .pill:hover{background:var(--ink);color:var(--plaster)}
-.fab{position:fixed;right:28px;bottom:28px;width:108px;height:108px;border-radius:50%;background:var(--bronze);color:var(--white);display:grid;place-items:center;text-align:center;font-size:10px;letter-spacing:.22em;text-transform:uppercase;line-height:1.4;padding:14px;z-index:60;box-shadow:0 20px 50px rgba(122,92,62,.4);transform:scale(0);transition:transform .6s cubic-bezier(.2,.7,.2,1),background .2s}
-.fab.show{transform:scale(1)}
-.fab:hover{background:var(--ink)}
-@media(max-width:900px){.fab{width:78px;height:78px;font-size:8px;right:14px;bottom:88px}.actions{bottom:14px;width:calc(100% - 28px);justify-content:center}.pill{padding:12px 14px;font-size:10px;letter-spacing:.16em}.hero-words .w2{top:28vh}.hero-words .w3{bottom:18vh}.daynight{bottom:150px!important;right:14px!important}}
+@media(max-width:900px){.actions{bottom:14px;width:calc(100% - 28px);justify-content:center}.pill{padding:12px 14px;font-size:10px;letter-spacing:.16em}.hero-words .w2{top:28vh}.hero-words .w3{bottom:18vh}.daynight{bottom:150px!important;right:14px!important}}
 
 .prog-head{max-width:62ch;margin-bottom:56px}
 .level{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center;margin-bottom:72px}
@@ -392,11 +390,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
 <div class="intro-ov" id="introOv"><div class="intro-in"><span class="eyebrow" style="color:var(--oak)">Cap Cana · República Dominicana</span><h1>Villa <em>Oliva</em></h1><span class="intro-line"></span></div><button id="introSkip" data-i18n="intro.skip">Saltar</button></div>
 <div class="actions" id="actions">
-  <a href="#contact" class="pill" data-i18n="act.dossier">Dossier</a>
-  <button class="pill" id="actGallery" data-i18n="act.gallery">Galería</button>
-  <a href="tel:+18097271223" class="pill" data-i18n="act.call">Llamar</a>
+  <button class="pill pill-main" id="actGallery"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="m21 16-5-5-8 8"/></svg><span data-i18n="act.gallery">Galería</span></button>
 </div>
-<a href="#contact" class="fab"><span data-i18n="act.fab">Solicitar llamada</span></a>
 <nav id="nav">
   <div class="wrap">
     <a href="#top" class="brand">Villa Oliva<small>El Parque 42 · Cap Cana</small></a>
@@ -795,7 +790,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
           <div><label data-i18n="f.country">País</label><input name="country"></div>
         </div>
         <div><label data-i18n="f.msg">Mensaje</label><textarea name="msg" data-i18n-ph="f.msgph" placeholder="Me gustaría recibir el dossier de Villa Oliva…"></textarea></div>
-        <button class="btn" type="submit" data-i18n="f.send">Solicitar dossier</button>
+        <button class="btn" type="submit" data-i18n="f.send">Enviar</button>
       </form>
       <div class="sent" id="sent"></div>
     </div>
@@ -841,7 +836,7 @@ en:{
 't.ph1':'Phases completed','t.ph2':'In progress · Structure','t.ph3':'Site week no. 8','t.ph4':'Next milestone','t.ph5':'Roof slab pour · week 10','t.ph6':'Meeting minutes · finishes','t.ph7':'Travertine selection · agreed','t.ill':'Illustrative screens',
 'st.eyebrow':'Architecture','st.title':'Design, permitting & execution','st.body':'GSB Guerrero-Strachan & Braun is an architecture studio with projects in the Dominican Republic, Spain and the UAE, guiding each project from start to finish: design, permitting and execution.',
 'c.eyebrow':'Contact','c.title':'Information & viewings','c.body':'Write to us and we will send you the full Villa Oliva dossier, with floor plans, finishes and terms.','c.role':'Architect',
-'f.name':'Name','f.email':'Email','f.phone':'Phone','f.country':'Country','f.msg':'Message','f.msgph':'I would like to receive the Villa Oliva dossier…','f.send':'Request dossier',
+'f.name':'Name','f.email':'Email','f.phone':'Phone','f.country':'Country','f.msg':'Message','f.msgph':'I would like to receive the Villa Oliva dossier…','f.send':'Send',
 'sent':'Thank you. We will reply shortly at the address you provided. You can also write directly to estudio@miguelbraun.com.',
 'ft.note':'Images are not contractual'
 },
@@ -870,7 +865,7 @@ fr:{
 't.ph1':'Phases terminées','t.ph2':'En cours · Structure','t.ph3':'Semaine de chantier n° 8','t.ph4':'Prochain jalon','t.ph5':'Coulage de la dalle de toiture · semaine 10','t.ph6':'Compte rendu · finitions','t.ph7':'Choix du travertin · validé','t.ill':'Écrans illustratifs',
 'st.eyebrow':'Architecture','st.title':'Conception, permis et exécution','st.body':'GSB Guerrero-Strachan & Braun est un cabinet d\'architecture avec des projets en République dominicaine, en Espagne et aux Émirats arabes unis. Nous accompagnons chaque projet du début à la fin : conception, permis et exécution.',
 'c.eyebrow':'Contact','c.title':'Informations et visites','c.body':'Écrivez-nous et nous vous enverrons le dossier complet de Villa Oliva, avec plans, finitions et conditions.','c.role':'Architecte',
-'f.name':'Nom','f.email':'E-mail','f.phone':'Téléphone','f.country':'Pays','f.msg':'Message','f.msgph':'Je souhaite recevoir le dossier de Villa Oliva…','f.send':'Demander le dossier',
+'f.name':'Nom','f.email':'E-mail','f.phone':'Téléphone','f.country':'Pays','f.msg':'Message','f.msgph':'Je souhaite recevoir le dossier de Villa Oliva…','f.send':'Envoyer',
 'sent':'Merci. Nous vous répondrons rapidement à l\'adresse indiquée. Vous pouvez aussi écrire directement à estudio@miguelbraun.com.',
 'ft.note':'Images non contractuelles'
 },
@@ -899,7 +894,7 @@ pt:{
 't.ph1':'Fases concluídas','t.ph2':'Em curso · Estrutura','t.ph3':'Semana de obra n.º 8','t.ph4':'Próximo marco','t.ph5':'Betonagem da laje de cobertura · semana 10','t.ph6':'Ata de reunião · acabamentos','t.ph7':'Seleção do travertino · acordado','t.ill':'Ecrãs ilustrativos',
 'st.eyebrow':'Arquitetura','st.title':'Projeto, licenciamento e execução','st.body':'A GSB Guerrero-Strachan & Braun é um atelier de arquitetura com projetos na República Dominicana, Espanha e Emirados Árabes Unidos. Acompanhamos cada projeto do princípio ao fim: projeto, licenciamento e execução.',
 'c.eyebrow':'Contacto','c.title':'Mais informação e visitas','c.body':'Escreva-nos e enviaremos o dossiê completo da Villa Oliva, com plantas, acabamentos e condições.','c.role':'Arquiteto',
-'f.name':'Nome','f.email':'E-mail','f.phone':'Telefone','f.country':'País','f.msg':'Mensagem','f.msgph':'Gostaria de receber o dossiê da Villa Oliva…','f.send':'Pedir dossiê',
+'f.name':'Nome','f.email':'E-mail','f.phone':'Telefone','f.country':'País','f.msg':'Mensagem','f.msgph':'Gostaria de receber o dossiê da Villa Oliva…','f.send':'Enviar',
 'sent':'Obrigado. Responderemos em breve para o endereço indicado. Pode também escrever diretamente para estudio@miguelbraun.com.',
 'ft.note':'Imagens não contratuais'
 },
@@ -928,7 +923,7 @@ de:{
 't.ph1':'Abgeschlossene Phasen','t.ph2':'Laufend · Rohbau','t.ph3':'Bauwoche Nr. 8','t.ph4':'Nächster Meilenstein','t.ph5':'Betonieren der Dachdecke · Woche 10','t.ph6':'Besprechungsprotokoll · Ausstattung','t.ph7':'Travertinauswahl · vereinbart','t.ill':'Beispielhafte Bildschirme',
 'st.eyebrow':'Architektur','st.title':'Entwurf, Genehmigung und Ausführung','st.body':'GSB Guerrero-Strachan & Braun ist ein Architekturbüro mit Projekten in der Dominikanischen Republik, Spanien und den Vereinigten Arabischen Emiraten. Wir begleiten jedes Projekt von Anfang bis Ende: Entwurf, Genehmigung und Ausführung.',
 'c.eyebrow':'Kontakt','c.title':'Informationen und Besichtigungen','c.body':'Schreiben Sie uns, und wir senden Ihnen das vollständige Dossier zur Villa Oliva mit Grundrissen, Ausstattung und Konditionen.','c.role':'Architekt',
-'f.name':'Name','f.email':'E-Mail','f.phone':'Telefon','f.country':'Land','f.msg':'Nachricht','f.msgph':'Ich möchte das Dossier zur Villa Oliva erhalten…','f.send':'Dossier anfordern',
+'f.name':'Name','f.email':'E-Mail','f.phone':'Telefon','f.country':'Land','f.msg':'Nachricht','f.msgph':'Ich möchte das Dossier zur Villa Oliva erhalten…','f.send':'Senden',
 'sent':'Vielen Dank. Wir melden uns in Kürze unter der angegebenen Adresse. Sie können auch direkt an estudio@miguelbraun.com schreiben.',
 'ft.note':'Abbildungen unverbindlich'
 },
@@ -957,7 +952,7 @@ it:{
 't.ph1':'Fasi completate','t.ph2':'In corso · Struttura','t.ph3':'Settimana di cantiere n. 8','t.ph4':'Prossimo traguardo','t.ph5':'Getto della soletta di copertura · settimana 10','t.ph6':'Verbale di riunione · finiture','t.ph7':'Selezione del travertino · concordata','t.ill':'Schermate illustrative',
 'st.eyebrow':'Architettura','st.title':'Progetto, permessi ed esecuzione','st.body':'GSB Guerrero-Strachan & Braun è uno studio di architettura con progetti nella Repubblica Dominicana, in Spagna e negli Emirati Arabi Uniti. Accompagniamo ogni progetto dall\'inizio alla fine: progetto, permessi ed esecuzione.',
 'c.eyebrow':'Contatti','c.title':'Informazioni e visite','c.body':'Scrivici e ti invieremo il dossier completo di Villa Oliva, con piante, finiture e condizioni.','c.role':'Architetto',
-'f.name':'Nome','f.email':'E-mail','f.phone':'Telefono','f.country':'Paese','f.msg':'Messaggio','f.msgph':'Vorrei ricevere il dossier di Villa Oliva…','f.send':'Richiedi il dossier',
+'f.name':'Nome','f.email':'E-mail','f.phone':'Telefono','f.country':'Paese','f.msg':'Messaggio','f.msgph':'Vorrei ricevere il dossier di Villa Oliva…','f.send':'Invia',
 'sent':'Grazie. Ti risponderemo a breve all\'indirizzo indicato. Puoi anche scrivere direttamente a estudio@miguelbraun.com.',
 'ft.note':'Immagini non contrattuali'
 },
@@ -986,7 +981,7 @@ ru:{
 't.ph1':'Этапов завершено','t.ph2':'В работе · Каркас','t.ph3':'Неделя строительства № 8','t.ph4':'Следующая веха','t.ph5':'Заливка плиты кровли · неделя 10','t.ph6':'Протокол встречи · отделка','t.ph7':'Выбор травертина · согласовано','t.ill':'Иллюстративные экраны',
 'st.eyebrow':'Архитектура','st.title':'Проектирование, согласования и строительство','st.body':'GSB Guerrero-Strachan & Braun — архитектурное бюро с проектами в Доминиканской Республике, Испании и ОАЭ. Мы сопровождаем каждый проект от начала до конца: проектирование, согласования и строительство.',
 'c.eyebrow':'Контакты','c.title':'Информация и просмотры','c.body':'Напишите нам, и мы вышлем полное досье виллы Олива с планами, отделкой и условиями.','c.role':'Архитектор',
-'f.name':'Имя','f.email':'Эл. почта','f.phone':'Телефон','f.country':'Страна','f.msg':'Сообщение','f.msgph':'Хочу получить досье виллы Олива…','f.send':'Запросить досье',
+'f.name':'Имя','f.email':'Эл. почта','f.phone':'Телефон','f.country':'Страна','f.msg':'Сообщение','f.msgph':'Хочу получить досье виллы Олива…','f.send':'Отправить',
 'sent':'Спасибо. Мы скоро ответим на указанный адрес. Вы также можете написать напрямую на estudio@miguelbraun.com.',
 'ft.note':'Изображения не являются офертой'
 }
@@ -997,7 +992,7 @@ Object.entries({"es": {"t.tag": "Seguimiento de obra · Construction tracking", 
 Object.entries({"es": {"intro.skip": "Saltar", "act.dossier": "Dossier", "act.gallery": "Galería", "act.call": "Llamar", "act.fab": "Solicitar llamada", "hw.1": "Piedra", "hw.2": "Luz", "hw.3": "Proporción", "aq.eyebrow": "El arquitecto", "aq.quote": "«Quise que la casa pareciera haber estado siempre ahí: piedra clara, sombra profunda y una luz que entra por todas partes.»", "aq.role": "Arquitecto · GSB Guerrero-Strachan & Braun"}, "en": {"intro.skip": "Skip", "act.dossier": "Dossier", "act.gallery": "Gallery", "act.call": "Call", "act.fab": "Request a call", "hw.1": "Stone", "hw.2": "Light", "hw.3": "Proportion", "aq.eyebrow": "The architect", "aq.quote": "“I wanted the house to feel as if it had always been there: pale stone, deep shade and light coming in from everywhere.”", "aq.role": "Architect · GSB Guerrero-Strachan & Braun"}, "fr": {"intro.skip": "Passer", "act.dossier": "Dossier", "act.gallery": "Galerie", "act.call": "Appeler", "act.fab": "Demander un appel", "hw.1": "Pierre", "hw.2": "Lumière", "hw.3": "Proportion", "aq.eyebrow": "L'architecte", "aq.quote": "« Je voulais que la maison semble avoir toujours été là : pierre claire, ombre profonde et une lumière qui entre de partout. »", "aq.role": "Architecte · GSB Guerrero-Strachan & Braun"}, "pt": {"intro.skip": "Saltar", "act.dossier": "Dossiê", "act.gallery": "Galeria", "act.call": "Ligar", "act.fab": "Pedir chamada", "hw.1": "Pedra", "hw.2": "Luz", "hw.3": "Proporção", "aq.eyebrow": "O arquiteto", "aq.quote": "«Quis que a casa parecesse ter estado sempre ali: pedra clara, sombra profunda e uma luz que entra por todo o lado.»", "aq.role": "Arquiteto · GSB Guerrero-Strachan & Braun"}, "de": {"intro.skip": "Überspringen", "act.dossier": "Dossier", "act.gallery": "Galerie", "act.call": "Anrufen", "act.fab": "Rückruf anfordern", "hw.1": "Stein", "hw.2": "Licht", "hw.3": "Proportion", "aq.eyebrow": "Der Architekt", "aq.quote": "„Ich wollte, dass das Haus wirkt, als hätte es schon immer dort gestanden: heller Stein, tiefer Schatten und Licht, das von überall hereinfällt.“", "aq.role": "Architekt · GSB Guerrero-Strachan & Braun"}, "it": {"intro.skip": "Salta", "act.dossier": "Dossier", "act.gallery": "Galleria", "act.call": "Chiama", "act.fab": "Richiedi una chiamata", "hw.1": "Pietra", "hw.2": "Luce", "hw.3": "Proporzione", "aq.eyebrow": "L'architetto", "aq.quote": "«Volevo che la casa sembrasse essere sempre stata lì: pietra chiara, ombra profonda e una luce che entra da ogni parte.»", "aq.role": "Architetto · GSB Guerrero-Strachan & Braun"}, "ru": {"intro.skip": "Пропустить", "act.dossier": "Досье", "act.gallery": "Галерея", "act.call": "Позвонить", "act.fab": "Заказать звонок", "hw.1": "Камень", "hw.2": "Свет", "hw.3": "Пропорция", "aq.eyebrow": "Архитектор", "aq.quote": "«Я хотел, чтобы дом выглядел так, будто стоял здесь всегда: светлый камень, глубокая тень и свет, входящий отовсюду».", "aq.role": "Архитектор · GSB Guerrero-Strachan & Braun"}}).forEach(([l,d])=>Object.assign(T[l],d));
 Object.entries({"es": {"grow.cap": "Desliza para entrar"}, "en": {"grow.cap": "Scroll to step in"}, "fr": {"grow.cap": "Faites défiler pour entrer"}, "pt": {"grow.cap": "Deslize para entrar"}, "de": {"grow.cap": "Scrollen, um einzutreten"}, "it": {"grow.cap": "Scorri per entrare"}, "ru": {"grow.cap": "Листайте, чтобы войти"}}).forEach(([l,d])=>Object.assign(T[l],d));
 Object.entries({"es": {"prog.l1t": "Vida social y exterior", "prog.l2t": "Zona de descanso"}, "en": {"prog.l1t": "Living & outdoors", "prog.l2t": "Private quarters"}, "fr": {"prog.l1t": "Vie sociale et extérieurs", "prog.l2t": "Espace nuit"}, "pt": {"prog.l1t": "Vida social e exterior", "prog.l2t": "Zona de descanso"}, "de": {"prog.l1t": "Wohnen und Außenbereich", "prog.l2t": "Private Räume"}, "it": {"prog.l1t": "Zona giorno ed esterni", "prog.l2t": "Zona notte"}, "ru": {"prog.l1t": "Общая зона и улица", "prog.l2t": "Приватная зона"}}).forEach(([l,d])=>Object.assign(T[l],d));
-T.es.sent='Gracias. Te responderemos en breve a la dirección indicada. También puedes escribir directamente a estudio@miguelbraun.com.';
+T.es.sent='Gracias. Se ha abierto tu correo con el mensaje preparado; si no se abre, escríbenos a estudio@miguelbraun.com.';
 
 const ORIG={};
 document.querySelectorAll('[data-i18n]').forEach(el=>{ORIG[el.dataset.i18n]=ORIG[el.dataset.i18n]||el.innerHTML});
@@ -1042,12 +1037,18 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.targ
 document.querySelectorAll('.rv').forEach(el=>io.observe(el));
 
 /* form */
-document.getElementById('form').addEventListener('submit',e=>{
-  e.preventDefault();
-  const s=document.getElementById('sent'); s.textContent=(T[cur]&&T[cur].sent)||T.es.sent; s.style.display='block';
-  e.target.style.display='none';
+const FORM_ENDPOINT=''; // Formspree: 'https://formspree.io/f/XXXXXXXX'
+document.getElementById('form').addEventListener('submit',async e=>{
+  e.preventDefault(); const f=e.target, fd=new FormData(f), s=document.getElementById('sent');
+  const done=()=>{s.textContent=(T[cur]&&T[cur].sent)||T.es.sent; s.style.display='block'; f.style.display='none'};
+  if(FORM_ENDPOINT){
+    try{const r=await fetch(FORM_ENDPOINT,{method:'POST',body:fd,headers:{'Accept':'application/json'}}); if(r.ok){done();return}}catch(err){}
+  }
+  const o=Object.fromEntries(fd.entries());
+  const body=`Nombre: ${o.name}\nEmail: ${o.email}\nTeléfono: ${o.phone||''}\nPaís: ${o.country||''}\n\n${o.msg||''}`;
+  location.href='mailto:estudio@miguelbraun.com?subject='+encodeURIComponent('Villa Oliva · solicitud de dossier · '+(o.name||''))+'&body='+encodeURIComponent(body);
+  done();
 });
-
 /* images: when real files exist under img/<key>.jpg they replace the placeholders */
 const IMG={hero:'img/hero.jpg',rear:'img/rear.jpg',living:'img/living.jpg',kitchen:'img/kitchen.jpg',kitchen2:'img/kitchen.jpg',suite:'img/suite.jpg',suite2:'img/suite.jpg',pool:'img/pool.jpg',bath:'img/dining.jpg',firepit:'img/firepit.jpg',planPB:'img/plan-pb.jpg',planP1:'img/plan-p1.jpg',aerial:'img/aerial.jpg'};
 document.querySelectorAll('[data-img]').forEach(box=>{
@@ -1096,8 +1097,8 @@ document.querySelectorAll('[data-img]').forEach(box=>{
  if(seen){ov.style.transition='none';close()} else {setTimeout(close,2600);document.getElementById('introSkip').onclick=close;}
 })();
 // action bar + fab
-(function(){const a=document.getElementById('actions'),f=document.querySelector('.fab');
- const t=()=>{const on=scrollY>innerHeight*.9;a.classList.toggle('show',on);f.classList.toggle('show',on)};
+(function(){const a=document.getElementById('actions');
+ const t=()=>{const on=scrollY>innerHeight*.9;a.classList.toggle('show',on)};
  addEventListener('scroll',t,{passive:true});t();
  document.getElementById('actGallery').onclick=()=>{const first=document.querySelector('.mosaic .frame img');if(first)first.click();else location.hash='#spaces'};
 })();
