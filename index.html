@@ -30,6 +30,7 @@ hr.rule{border:0;height:1px;background:linear-gradient(90deg,transparent,var(--o
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:50;padding:22px 0;transition:background .4s,box-shadow .4s,padding .4s;color:var(--white)}
+nav.onimg{color:var(--white)}
 nav.solid{background:rgba(246,241,233,.92);backdrop-filter:blur(12px);color:var(--ink);padding:14px 0;box-shadow:0 1px 0 rgba(43,38,32,.06)}
 nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px}
 .brand{font-family:var(--serif);font-size:22px;letter-spacing:.14em;text-transform:uppercase;font-weight:400}
@@ -329,10 +330,68 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .tr-phones .ph1{left:12%;top:8%;transform:rotate(-4deg)}
 .tr-phones .ph2{right:10%;top:22%;transform:rotate(3deg)}
 @media(max-width:900px){.tr-grid{grid-template-columns:1fr}.tr-text{padding:72px 32px}.tr-phones{min-height:640px}.tr-phones img{width:52%}.tr-phones .ph1{left:4%;top:6%}.tr-phones .ph2{right:4%;top:24%}}
+
+/* ===== ERA-style scroll effects ===== */
+.pin-hero{height:230svh;position:relative}
+.pin-hero .hero{position:sticky;top:0;height:100svh;min-height:0}
+.hero .media img{animation:none;transform-origin:50% 55%;will-change:transform}
+.hero .media .night{transition:none}
+.hero-words{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.hero-words span{position:absolute;font-family:var(--serif);font-weight:300;font-size:clamp(64px,13vw,220px);line-height:.9;letter-spacing:-.01em;text-transform:uppercase;color:var(--white);opacity:0;transform:translateY(40px);will-change:transform,opacity;text-shadow:0 2px 30px rgba(0,0,0,.25)}
+.hero-words .w1{left:4vw;top:10vh}
+.hero-words .w2{right:6vw;top:34vh;color:var(--oak);font-style:italic}
+.hero-words .w3{left:4vw;bottom:8vh;font-size:clamp(44px,9vw,150px)}
+.hero .wrap,.hero .scroll,.hero .daynight{transition:opacity .4s}
+.hero.words .wrap,.hero.words .scroll{opacity:0;pointer-events:none}
+/* grow */
+.grow{height:260svh;position:relative;background:var(--paper)}
+.grow-sticky{position:sticky;top:0;height:100svh;display:grid;place-items:center;overflow:hidden}
+.grow-img{width:56vw;aspect-ratio:16/9;border-radius:6px;overflow:hidden;position:relative;will-change:width,border-radius;box-shadow:0 40px 90px rgba(43,38,32,.25)}
+.grow-img img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.08);will-change:transform}
+.grow-img:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,16,12,.1),rgba(20,16,12,.55));opacity:0;transition:opacity .4s}
+.grow.full .grow-img:after{opacity:1}
+.grow-text{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:var(--white);opacity:0;transform:translateY(30px);transition:opacity .6s,transform .6s;pointer-events:none;padding:0 32px}
+.grow.full .grow-text{opacity:1;transform:none}
+.grow-text blockquote{font-family:var(--serif);font-size:clamp(30px,4.2vw,60px);font-weight:300;font-style:italic;max-width:20ch;line-height:1.15;text-shadow:0 2px 24px rgba(0,0,0,.35)}
+.grow-text .eyebrow{color:var(--trav);margin-top:26px}
+@media(max-width:900px){.grow-img{width:82vw;aspect-ratio:4/5}.grow{height:220svh}}
+/* architect quote */
+.aq{padding:120px 0;background:var(--white)}
+.aq blockquote{font-family:var(--serif);font-size:clamp(26px,3.2vw,44px);font-weight:300;font-style:italic;line-height:1.3;max-width:28ch;margin:24px auto 36px;text-align:center}
+.aq-who{text-align:center}
+.aq-who b{display:block;font-weight:500;letter-spacing:.06em}
+.aq-who span{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--bronze)}
+/* intro overlay */
+.intro-ov{position:fixed;inset:0;background:var(--paper);z-index:200;display:flex;align-items:center;justify-content:center;transition:opacity .9s ease,visibility .9s}
+.intro-ov.out{opacity:0;visibility:hidden}
+.intro-in{text-align:center}
+.intro-in h1{font-size:clamp(56px,9vw,120px);font-weight:300;margin:14px 0 22px;letter-spacing:.02em;opacity:0;animation:introUp 1.2s .2s cubic-bezier(.2,.7,.2,1) forwards}
+.intro-in h1 em{font-style:italic;color:var(--bronze)}
+.intro-in .eyebrow{display:block;opacity:0;animation:introUp 1s .05s forwards}
+.intro-line{display:block;width:0;height:1px;background:var(--bronze);margin:0 auto;animation:line 1.4s .6s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes introUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes line{to{width:160px}}
+#introSkip{position:absolute;right:32px;bottom:32px;background:none;border:1px solid var(--bronze);color:var(--bronze);font:inherit;font-size:11px;letter-spacing:.24em;text-transform:uppercase;padding:10px 20px;border-radius:999px;cursor:pointer}
+/* action bar + fab */
+.actions{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(120px);display:flex;gap:8px;z-index:60;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.actions.show{transform:translateX(-50%)}
+.pill{background:rgba(246,241,233,.85);backdrop-filter:blur(12px);border:1px solid rgba(43,38,32,.15);color:var(--ink);font:inherit;font-size:11px;letter-spacing:.22em;text-transform:uppercase;padding:13px 22px;border-radius:999px;cursor:pointer;transition:background .2s,color .2s;box-shadow:0 10px 30px rgba(43,38,32,.12)}
+.pill:hover{background:var(--ink);color:var(--plaster)}
+.fab{position:fixed;right:28px;bottom:28px;width:108px;height:108px;border-radius:50%;background:var(--bronze);color:var(--white);display:grid;place-items:center;text-align:center;font-size:10px;letter-spacing:.22em;text-transform:uppercase;line-height:1.4;padding:14px;z-index:60;box-shadow:0 20px 50px rgba(122,92,62,.4);transform:scale(0);transition:transform .6s cubic-bezier(.2,.7,.2,1),background .2s}
+.fab.show{transform:scale(1)}
+.fab:hover{background:var(--ink)}
+@media(max-width:900px){.fab{width:78px;height:78px;font-size:8px;right:14px;bottom:88px}.actions{bottom:14px;width:calc(100% - 28px);justify-content:center}.pill{padding:12px 14px;font-size:10px;letter-spacing:.16em}.hero-words .w2{top:28vh}.hero-words .w3{bottom:18vh}.daynight{bottom:150px!important;right:14px!important}}
 </style>
 </head>
 <body>
 
+<div class="intro-ov" id="introOv"><div class="intro-in"><span class="eyebrow" style="color:var(--oak)">Cap Cana · República Dominicana</span><h1>Villa <em>Oliva</em></h1><span class="intro-line"></span></div><button id="introSkip" data-i18n="intro.skip">Saltar</button></div>
+<div class="actions" id="actions">
+  <a href="#contact" class="pill" data-i18n="act.dossier">Dossier</a>
+  <button class="pill" id="actGallery" data-i18n="act.gallery">Galería</button>
+  <a href="tel:+18097271223" class="pill" data-i18n="act.call">Llamar</a>
+</div>
+<a href="#contact" class="fab"><span data-i18n="act.fab">Solicitar llamada</span></a>
 <nav id="nav">
   <div class="wrap">
     <a href="#top" class="brand">Villa Oliva<small>El Parque 42 · Cap Cana</small></a>
@@ -364,7 +423,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 </div>
 
 <!-- HERO -->
-<header class="hero" id="top">
+<div class="pin-hero" id="top"><header class="hero">
   <div class="media" data-img="hero" data-night="img/hero-night.jpg"><div class="ph">
     <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
       <defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D9CBB4"/><stop offset="1" stop-color="#B7A288"/></linearGradient></defs>
@@ -388,7 +447,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   </div>
   <div class="daynight"><button class="on" data-mode="day" title="Día">☀</button><button data-mode="night" title="Noche">☾</button></div>
   <a href="#villa" class="scroll" data-i18n="hero.scroll">Descubrir</a>
-</header>
+  <div class="hero-words" aria-hidden="true"><span class="w1" data-i18n="hw.1">Piedra</span><span class="w2" data-i18n="hw.2">Luz</span><span class="w3" data-i18n="hw.3">Proporción</span></div>
+</header></div>
 
 <!-- INTRO -->
 <section class="intro" id="villa">
@@ -405,6 +465,16 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   </div>
 </section>
 
+
+
+<!-- QUOTE -->
+<section class="aq">
+  <div class="wrap rv">
+    <p class="eyebrow center" data-i18n="aq.eyebrow">El arquitecto</p>
+    <blockquote data-i18n="aq.quote">«Quise que la casa pareciera haber estado siempre ahí: piedra clara, sombra profunda y una luz que entra por todas partes.»</blockquote>
+    <div class="aq-who"><b>Miguel Braun</b><span data-i18n="aq.role">Arquitecto · GSB Guerrero-Strachan &amp; Braun</span></div>
+  </div>
+</section>
 
 <!-- DAY / NIGHT -->
 <section class="compare">
@@ -424,11 +494,11 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   <div class="wrap">
     <p class="eyebrow center" style="margin-bottom:48px" data-i18n="facts.eyebrow">Ficha técnica</p>
     <div class="row rv">
-      <div><b>879</b><span data-i18n="facts.plot">m² de solar</span></div>
-      <div><b>6</b><span data-i18n="facts.beds">Dormitorios en suite</span></div>
+      <div><b data-count="879">879</b><span data-i18n="facts.plot">m² de solar</span></div>
+      <div><b data-count="6">6</b><span data-i18n="facts.beds">Dormitorios en suite</span></div>
       <div><b>6+1</b><span data-i18n="facts.baths">Baños + aseo</span></div>
-      <div><b>74</b><span data-i18n="facts.living">m² salón-comedor</span></div>
-      <div><b>72</b><span data-i18n="facts.pool">m² de piscina</span></div>
+      <div><b data-count="74">74</b><span data-i18n="facts.living">m² salón-comedor</span></div>
+      <div><b data-count="72">72</b><span data-i18n="facts.pool">m² de piscina</span></div>
       <div><b>2</b><span data-i18n="facts.parking">Plazas cubiertas</span></div>
     </div>
   </div>
@@ -585,12 +655,14 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   </div>
 </section>
 
-<!-- BAND 2 -->
-<section class="px" data-px="img/rear-night.jpg" style="min-height:92svh">
-  <div class="bg"></div><div class="shade"></div>
-  <div class="wrap rv">
-    <blockquote data-i18n="band2.quote">Al caer la noche, la casa entera se refleja en la piscina.</blockquote>
-    <p class="eyebrow" data-i18n="band2.sub">Fachada al jardín · vista nocturna</p>
+<!-- BAND 2 : pinned growing pool -->
+<section class="grow" id="grow">
+  <div class="grow-sticky">
+    <div class="grow-img"><img src="img/rear-night.jpg" alt=""></div>
+    <div class="grow-text">
+      <blockquote data-i18n="band2.quote">Al caer la noche, la casa entera se refleja en la piscina.</blockquote>
+      <p class="eyebrow" data-i18n="band2.sub">Fachada al jardín · vista nocturna</p>
+    </div>
   </div>
 </section>
 
@@ -913,6 +985,7 @@ ru:{
 Object.entries({"es": {"dn.eyebrow": "Del día a la noche", "dn.title": "La misma casa, dos luces", "dn.day": "Día", "dn.night": "Noche", "band2.quote": "Olivos, piedra y fuego: las noches de Cap Cana se viven fuera.", "band2.sub": "Salón exterior con fire pit", "plan.hint": "Pasa el dedo por una estancia", "hs.outdining": "Comedor exterior porticado", "hs.firepit": "Salón exterior · fire pit", "hs.guest": "Suite de invitados", "hs.stairs": "Escalera", "hs.bath": "Baño", "hs.sitting": "Estar", "hs.dressing": "Vestidor", "hs.void": "Doble altura sobre el salón", "hs.terrace": "Terraza"}, "en": {"dn.eyebrow": "From day to night", "dn.title": "One house, two lights", "dn.day": "Day", "dn.night": "Night", "band2.quote": "Olive trees, stone and fire: Cap Cana nights are lived outdoors.", "band2.sub": "Fire-pit lounge", "plan.hint": "Hover or tap a room", "hs.outdining": "Covered outdoor dining", "hs.firepit": "Fire-pit lounge", "hs.guest": "Guest suite", "hs.stairs": "Staircase", "hs.bath": "Bathroom", "hs.sitting": "Sitting area", "hs.dressing": "Dressing room", "hs.void": "Double-height void over living room", "hs.terrace": "Terrace"}, "fr": {"dn.eyebrow": "Du jour à la nuit", "dn.title": "Une maison, deux lumières", "dn.day": "Jour", "dn.night": "Nuit", "band2.quote": "Oliviers, pierre et feu : les nuits de Cap Cana se vivent dehors.", "band2.sub": "Salon extérieur avec foyer", "plan.hint": "Survolez ou touchez une pièce", "hs.outdining": "Salle à manger extérieure couverte", "hs.firepit": "Salon extérieur · foyer", "hs.guest": "Suite d'invités", "hs.stairs": "Escalier", "hs.bath": "Salle de bains", "hs.sitting": "Coin salon", "hs.dressing": "Dressing", "hs.void": "Double hauteur sur le séjour", "hs.terrace": "Terrasse"}, "pt": {"dn.eyebrow": "Do dia à noite", "dn.title": "A mesma casa, duas luzes", "dn.day": "Dia", "dn.night": "Noite", "band2.quote": "Oliveiras, pedra e fogo: as noites de Cap Cana vivem-se lá fora.", "band2.sub": "Sala exterior com fire pit", "plan.hint": "Passe o dedo por uma divisão", "hs.outdining": "Zona de refeições exterior coberta", "hs.firepit": "Sala exterior · fire pit", "hs.guest": "Suíte de hóspedes", "hs.stairs": "Escada", "hs.bath": "Casa de banho", "hs.sitting": "Zona de estar", "hs.dressing": "Closet", "hs.void": "Pé-direito duplo sobre a sala", "hs.terrace": "Terraço"}, "de": {"dn.eyebrow": "Vom Tag zur Nacht", "dn.title": "Ein Haus, zwei Lichter", "dn.day": "Tag", "dn.night": "Nacht", "band2.quote": "Oliven, Stein und Feuer: die Nächte von Cap Cana spielen sich draußen ab.", "band2.sub": "Außenlounge mit Feuerstelle", "plan.hint": "Raum berühren oder überfahren", "hs.outdining": "Überdachter Außenessbereich", "hs.firepit": "Außenlounge · Feuerstelle", "hs.guest": "Gästesuite", "hs.stairs": "Treppe", "hs.bath": "Bad", "hs.sitting": "Sitzbereich", "hs.dressing": "Ankleide", "hs.void": "Luftraum über dem Wohnzimmer", "hs.terrace": "Terrasse"}, "it": {"dn.eyebrow": "Dal giorno alla notte", "dn.title": "Una casa, due luci", "dn.day": "Giorno", "dn.night": "Notte", "band2.quote": "Ulivi, pietra e fuoco: le notti di Cap Cana si vivono all'aperto.", "band2.sub": "Salotto esterno con braciere", "plan.hint": "Sfiora o tocca una stanza", "hs.outdining": "Sala da pranzo esterna coperta", "hs.firepit": "Salotto esterno · braciere", "hs.guest": "Suite per gli ospiti", "hs.stairs": "Scala", "hs.bath": "Bagno", "hs.sitting": "Zona relax", "hs.dressing": "Cabina armadio", "hs.void": "Doppia altezza sul soggiorno", "hs.terrace": "Terrazza"}, "ru": {"dn.eyebrow": "От дня к ночи", "dn.title": "Один дом, два света", "dn.day": "День", "dn.night": "Ночь", "band2.quote": "Оливы, камень и огонь: ночи Кап-Каны проходят под открытым небом.", "band2.sub": "Открытая гостиная с очагом", "plan.hint": "Наведите или коснитесь комнаты", "hs.outdining": "Крытая уличная столовая", "hs.firepit": "Открытая гостиная · очаг", "hs.guest": "Гостевая спальня", "hs.stairs": "Лестница", "hs.bath": "Ванная", "hs.sitting": "Зона отдыха", "hs.dressing": "Гардеробная", "hs.void": "Двойная высота над гостиной", "hs.terrace": "Терраса"}}).forEach(([l,d])=>Object.assign(T[l],d));
 Object.entries({"es": {"hero.price": "Precio de venta", "band2.quote": "Al caer la noche, la casa entera se refleja en la piscina.", "band2.sub": "Fachada al jardín · vista nocturna"}, "en": {"hero.price": "Asking price", "av.price": "Asking price", "av.pricenote": "Turnkey · design, permitting and execution by GSB", "av.1": "Executive project complete", "av.1s": "Architecture, structure and services fully defined; construction starts on signing", "av.2": "Sold directly by the studio", "av.2s": "One point of contact from start to finish: design, permitting and execution", "av.3": "Customisable finishes", "av.3s": "Travertine, oak, bronze and textiles to choose within the project palette", "av.4": "Tracked with VillaTracker", "av.4s": "Real progress, site photos and minutes from your phone, every week", "band2.quote": "As night falls, the whole house is mirrored in the pool.", "band2.sub": "Garden façade · night view", "loc.eyebrow": "Living in Cap Cana", "loc.title": "All of Cap Cana within minutes", "loc.body": "Residencias del Parque is a gated community with 24-hour security inside Cap Cana, the most exclusive residential enclave in the east of the Dominican Republic: private beaches, the best golf in the Caribbean and the largest marina in the region, in a planned city with its own services.", "poi.1": "Juanillo Beach · beach club", "poi.2": "Los Establos · equestrian city", "poi.3": "Scape Park · Hoyo Azul", "poi.4": "Cap Cana Marina · restaurants and yachts", "poi.5": "Punta Cana International Airport", "poi.6": "Punta Espada Golf Club · Jack Nicklaus, No. 1 in the Caribbean", "poi.7": "Eden Roc · Caletón Beach Club · Api Beach", "poi.8": "Cap Cana Heritage School · supermarket · pharmacy · Blue Mall", "loc.note": "Approximate driving times from Residencias del Parque.", "inv.eyebrow": "For the investor buyer", "inv.title": "Why Cap Cana, why now", "inv.1": "visitors came to the Dominican Republic in 2025, an all-time record", "inv.2": "of tourists arrive through Punta Cana airport, about ten minutes from the villa", "inv.3": "Cap Cana real estate is priced in US dollars, with sustained international demand", "inv.4": "gated, established community: golf, marina, beaches and school inside the resort", "inv.p1": "A luxury rental asset", "inv.p1s": "Six suites, pool and cinema: the format most in demand from families and groups in high season, with professional management available in Cap Cana.", "inv.p2": "Buy off-plan at today's price", "inv.p2s": "Comparable villas in Residencias del Parque are listed between USD 1.4 and 1.7 M; Villa Oliva adds six suites, a double-height living room and a completed executive project.", "inv.p3": "Contained construction risk", "inv.p3s": "Design, permits and site supervision by the same studio, with weekly control through VillaTracker from anywhere in the world.", "inv.src": "Sources: Ministry of Tourism of the Dominican Republic (January 2026); public villa listings in Residencias del Parque (November 2026). Indicative information, not investment advice."}, "fr": {"hero.price": "Prix de vente", "av.price": "Prix de vente", "av.pricenote": "Clés en main · conception, permis et exécution par GSB", "av.1": "Projet d'exécution achevé", "av.1s": "Architecture, structure et réseaux définis ; démarrage du chantier à la signature", "av.2": "Vente directe par le cabinet", "av.2s": "Un seul interlocuteur du début à la fin : conception, permis et exécution", "av.3": "Finitions personnalisables", "av.3s": "Travertin, chêne, bronze et textiles au choix dans la palette du projet", "av.4": "Suivi avec VillaTracker", "av.4s": "Avancement réel, photos et comptes rendus de chantier sur votre téléphone, chaque semaine", "band2.quote": "À la tombée de la nuit, toute la maison se reflète dans la piscine.", "band2.sub": "Façade sur jardin · vue de nuit", "loc.eyebrow": "Vivre à Cap Cana", "loc.title": "Tout Cap Cana à quelques minutes", "loc.body": "Residencias del Parque est une résidence fermée avec sécurité 24 h/24 au sein de Cap Cana, l'enclave résidentielle la plus exclusive de l'est de la République dominicaine : plages privées, le meilleur golf des Caraïbes et la plus grande marina de la région, dans une ville planifiée dotée de ses propres services.", "poi.1": "Plage Juanillo · beach club", "poi.2": "Los Establos · cité équestre", "poi.3": "Scape Park · Hoyo Azul", "poi.4": "Marina Cap Cana · restaurants et yachts", "poi.5": "Aéroport international de Punta Cana", "poi.6": "Punta Espada Golf Club · Jack Nicklaus, n° 1 des Caraïbes", "poi.7": "Eden Roc · Caletón Beach Club · Api Beach", "poi.8": "Cap Cana Heritage School · supermarché · pharmacie · Blue Mall", "loc.note": "Temps de trajet approximatifs en voiture depuis Residencias del Parque.", "inv.eyebrow": "Pour l'acheteur investisseur", "inv.title": "Pourquoi Cap Cana, pourquoi maintenant", "inv.1": "visiteurs accueillis par la République dominicaine en 2025, record historique", "inv.2": "des touristes arrivent par l'aéroport de Punta Cana, à une dizaine de minutes de la villa", "inv.3": "marché immobilier de Cap Cana libellé en dollars, avec une demande internationale soutenue", "inv.4": "résidence fermée et consolidée : golf, marina, plages et école dans l'enceinte", "inv.p1": "Un actif locatif de luxe", "inv.p1s": "Six suites, piscine et cinéma : le format le plus demandé par les familles et les groupes en haute saison, avec gestion professionnelle disponible à Cap Cana.", "inv.p2": "Acheter sur plan au prix d'aujourd'hui", "inv.p2s": "Des villas comparables à Residencias del Parque sont proposées entre 1,4 et 1,7 M USD ; Villa Oliva ajoute six suites, un séjour à double hauteur et un projet d'exécution achevé.", "inv.p3": "Risque de chantier maîtrisé", "inv.p3s": "Conception, permis et direction de chantier par le même cabinet, avec un contrôle hebdomadaire via VillaTracker depuis n'importe où.", "inv.src": "Sources : Ministère du Tourisme de la République dominicaine (janvier 2026) ; annonces publiques de villas à Residencias del Parque (novembre 2026). Informations indicatives, ne constituant pas un conseil en investissement."}, "pt": {"hero.price": "Preço de venda", "av.price": "Preço de venda", "av.pricenote": "Chave na mão · projeto, licenciamento e execução pela GSB", "av.1": "Projeto de execução concluído", "av.1s": "Arquitetura, estrutura e instalações definidas; início de obra na assinatura", "av.2": "Venda direta do atelier", "av.2s": "Um único interlocutor do princípio ao fim: projeto, licenciamento e execução", "av.3": "Acabamentos personalizáveis", "av.3s": "Travertino, carvalho, bronze e têxteis à escolha dentro da paleta do projeto", "av.4": "Acompanhamento com VillaTracker", "av.4s": "Progresso real, fotos e atas de obra no telemóvel, todas as semanas", "band2.quote": "Ao cair da noite, a casa inteira reflete-se na piscina.", "band2.sub": "Fachada para o jardim · vista noturna", "loc.eyebrow": "Viver em Cap Cana", "loc.title": "Toda a Cap Cana a poucos minutos", "loc.body": "Residencias del Parque é um condomínio fechado com segurança 24 horas dentro de Cap Cana, o enclave residencial mais exclusivo do leste da República Dominicana: praias privadas, o melhor golfe das Caraíbas e a maior marina da região, numa cidade planeada com serviços próprios.", "poi.1": "Praia Juanillo · beach club", "poi.2": "Los Establos · cidade equestre", "poi.3": "Scape Park · Hoyo Azul", "poi.4": "Marina Cap Cana · restaurantes e iates", "poi.5": "Aeroporto Internacional de Punta Cana", "poi.6": "Punta Espada Golf Club · Jack Nicklaus, n.º 1 das Caraíbas", "poi.7": "Eden Roc · Caletón Beach Club · Api Beach", "poi.8": "Cap Cana Heritage School · supermercado · farmácia · Blue Mall", "loc.note": "Tempos aproximados de carro desde Residencias del Parque.", "inv.eyebrow": "Para o comprador investidor", "inv.title": "Porquê Cap Cana, porquê agora", "inv.1": "visitantes recebeu a República Dominicana em 2025, recorde histórico", "inv.2": "dos turistas entram pelo aeroporto de Punta Cana, a cerca de dez minutos da villa", "inv.3": "mercado imobiliário de Cap Cana em dólares, com procura internacional sustentada", "inv.4": "condomínio fechado e consolidado: golfe, marina, praias e escola dentro do recinto", "inv.p1": "Um ativo de arrendamento de luxo", "inv.p1s": "Seis suítes, piscina e cinema: o formato mais procurado por famílias e grupos na época alta, com gestão profissional disponível em Cap Cana.", "inv.p2": "Comprar em planta ao preço de hoje", "inv.p2s": "Villas comparáveis em Residencias del Parque anunciam-se entre 1,4 e 1,7 M USD; a Villa Oliva acrescenta seis suítes, pé-direito duplo e projeto de execução fechado.", "inv.p3": "Risco de obra controlado", "inv.p3s": "Projeto, licenças e direção de obra pelo mesmo atelier, com controlo semanal via VillaTracker de qualquer parte do mundo.", "inv.src": "Fontes: Ministério do Turismo da República Dominicana (janeiro de 2026); anúncios públicos de villas em Residencias del Parque (novembro de 2026). Informação indicativa, não constitui aconselhamento de investimento."}, "de": {"hero.price": "Kaufpreis", "av.price": "Kaufpreis", "av.pricenote": "Schlüsselfertig · Entwurf, Genehmigung und Ausführung durch GSB", "av.1": "Ausführungsplanung abgeschlossen", "av.1s": "Architektur, Tragwerk und Haustechnik definiert; Baubeginn bei Vertragsunterzeichnung", "av.2": "Direktverkauf durch das Büro", "av.2s": "Ein Ansprechpartner von Anfang bis Ende: Entwurf, Genehmigung und Ausführung", "av.3": "Individuelle Ausstattung", "av.3s": "Travertin, Eiche, Bronze und Textilien zur Wahl innerhalb der Projektpalette", "av.4": "Begleitung mit VillaTracker", "av.4s": "Realer Baufortschritt, Fotos und Protokolle auf dem Handy, jede Woche", "band2.quote": "Bei Einbruch der Nacht spiegelt sich das ganze Haus im Pool.", "band2.sub": "Gartenfassade · Nachtansicht", "loc.eyebrow": "Leben in Cap Cana", "loc.title": "Ganz Cap Cana in wenigen Minuten", "loc.body": "Residencias del Parque ist eine bewachte Wohnanlage mit 24-Stunden-Sicherheitsdienst in Cap Cana, der exklusivsten Wohnlage im Osten der Dominikanischen Republik: private Strände, der beste Golfplatz der Karibik und die größte Marina der Region, in einer geplanten Stadt mit eigener Infrastruktur.", "poi.1": "Strand Juanillo · Beachclub", "poi.2": "Los Establos · Reiterstadt", "poi.3": "Scape Park · Hoyo Azul", "poi.4": "Marina Cap Cana · Restaurants und Yachten", "poi.5": "Internationaler Flughafen Punta Cana", "poi.6": "Punta Espada Golf Club · Jack Nicklaus, Nr. 1 der Karibik", "poi.7": "Eden Roc · Caletón Beach Club · Api Beach", "poi.8": "Cap Cana Heritage School · Supermarkt · Apotheke · Blue Mall", "loc.note": "Ungefähre Fahrzeiten ab Residencias del Parque.", "inv.eyebrow": "Für den Investor", "inv.title": "Warum Cap Cana, warum jetzt", "inv.1": "Besucher empfing die Dominikanische Republik 2025, ein historischer Rekord", "inv.2": "der Touristen reisen über den Flughafen Punta Cana ein, rund zehn Minuten von der Villa", "inv.3": "Immobilienmarkt von Cap Cana in US-Dollar, mit anhaltender internationaler Nachfrage", "inv.4": "bewachte, etablierte Anlage: Golf, Marina, Strände und Schule auf dem Gelände", "inv.p1": "Ein Luxus-Mietobjekt", "inv.p1s": "Sechs Suiten, Pool und Kino: das in der Hochsaison bei Familien und Gruppen gefragteste Format, mit professioneller Verwaltung in Cap Cana.", "inv.p2": "Vom Plan kaufen, zum heutigen Preis", "inv.p2s": "Vergleichbare Villen in Residencias del Parque werden zwischen 1,4 und 1,7 Mio. USD angeboten; Villa Oliva bietet zusätzlich sechs Suiten, doppelte Raumhöhe und eine abgeschlossene Ausführungsplanung.", "inv.p3": "Begrenztes Baurisiko", "inv.p3s": "Entwurf, Genehmigungen und Bauleitung aus einer Hand, mit wöchentlicher Kontrolle über VillaTracker von überall auf der Welt.", "inv.src": "Quellen: Tourismusministerium der Dominikanischen Republik (Januar 2026); öffentliche Villenangebote in Residencias del Parque (November 2026). Unverbindliche Angaben, keine Anlageberatung."}, "it": {"hero.price": "Prezzo di vendita", "av.price": "Prezzo di vendita", "av.pricenote": "Chiavi in mano · progetto, permessi ed esecuzione a cura di GSB", "av.1": "Progetto esecutivo completato", "av.1s": "Architettura, struttura e impianti definiti; inizio lavori alla firma", "av.2": "Vendita diretta dello studio", "av.2s": "Un unico interlocutore dall'inizio alla fine: progetto, permessi ed esecuzione", "av.3": "Finiture personalizzabili", "av.3s": "Travertino, rovere, bronzo e tessuti a scelta nella palette del progetto", "av.4": "Monitoraggio con VillaTracker", "av.4s": "Avanzamento reale, foto e verbali di cantiere sul telefono, ogni settimana", "band2.quote": "Al calar della notte, tutta la casa si specchia nella piscina.", "band2.sub": "Facciata sul giardino · vista notturna", "loc.eyebrow": "Vivere a Cap Cana", "loc.title": "Tutta Cap Cana a pochi minuti", "loc.body": "Residencias del Parque è una comunità recintata con sicurezza 24 ore su 24 all'interno di Cap Cana, l'enclave residenziale più esclusiva dell'est della Repubblica Dominicana: spiagge private, il miglior golf dei Caraibi e la marina più grande della regione, in una città pianificata con servizi propri.", "poi.1": "Spiaggia Juanillo · beach club", "poi.2": "Los Establos · città equestre", "poi.3": "Scape Park · Hoyo Azul", "poi.4": "Marina Cap Cana · ristoranti e yacht", "poi.5": "Aeroporto Internazionale di Punta Cana", "poi.6": "Punta Espada Golf Club · Jack Nicklaus, n. 1 dei Caraibi", "poi.7": "Eden Roc · Caletón Beach Club · Api Beach", "poi.8": "Cap Cana Heritage School · supermercato · farmacia · Blue Mall", "loc.note": "Tempi approssimativi in auto da Residencias del Parque.", "inv.eyebrow": "Per l'acquirente investitore", "inv.title": "Perché Cap Cana, perché adesso", "inv.1": "visitatori ha accolto la Repubblica Dominicana nel 2025, record storico", "inv.2": "dei turisti entra dall'aeroporto di Punta Cana, a circa dieci minuti dalla villa", "inv.3": "mercato immobiliare di Cap Cana in dollari, con domanda internazionale costante", "inv.4": "comunità recintata e consolidata: golf, marina, spiagge e scuola all'interno del resort", "inv.p1": "Un asset per l'affitto di lusso", "inv.p1s": "Sei suite, piscina e cinema: il formato più richiesto da famiglie e gruppi in alta stagione, con gestione professionale disponibile a Cap Cana.", "inv.p2": "Acquistare su carta al prezzo di oggi", "inv.p2s": "Ville comparabili a Residencias del Parque sono in vendita tra 1,4 e 1,7 M USD; Villa Oliva aggiunge sei suite, doppia altezza e progetto esecutivo chiuso.", "inv.p3": "Rischio di cantiere contenuto", "inv.p3s": "Progetto, permessi e direzione lavori dello stesso studio, con controllo settimanale tramite VillaTracker da qualsiasi parte del mondo.", "inv.src": "Fonti: Ministero del Turismo della Repubblica Dominicana (gennaio 2026); annunci pubblici di ville a Residencias del Parque (novembre 2026). Informazioni indicative, non costituiscono consulenza d'investimento."}, "ru": {"hero.price": "Цена продажи", "av.price": "Цена продажи", "av.pricenote": "Под ключ · проект, согласования и строительство — GSB", "av.1": "Рабочий проект готов", "av.1s": "Архитектура, конструкции и инженерия определены; начало строительства при подписании", "av.2": "Прямая продажа от бюро", "av.2s": "Один контакт от начала до конца: проектирование, согласования и строительство", "av.3": "Индивидуальная отделка", "av.3s": "Травертин, дуб, бронза и текстиль на выбор в рамках палитры проекта", "av.4": "Контроль через VillaTracker", "av.4s": "Реальный ход работ, фото и протоколы со стройки в телефоне каждую неделю", "band2.quote": "С наступлением ночи весь дом отражается в бассейне.", "band2.sub": "Фасад со стороны сада · ночной вид", "loc.eyebrow": "Жизнь в Кап-Кане", "loc.title": "Вся Кап-Кана в нескольких минутах", "loc.body": "Residencias del Parque — закрытый посёлок с круглосуточной охраной внутри Кап-Каны, самого престижного жилого анклава востока Доминиканской Республики: частные пляжи, лучший гольф Карибов и крупнейшая марина региона в спланированном городе с собственной инфраструктурой.", "poi.1": "Пляж Хуанильо · пляжный клуб", "poi.2": "Los Establos · конный городок", "poi.3": "Scape Park · Hoyo Azul", "poi.4": "Марина Кап-Кана · рестораны и яхты", "poi.5": "Международный аэропорт Пунта-Кана", "poi.6": "Гольф-клуб Punta Espada · Джек Никлаус, № 1 на Карибах", "poi.7": "Eden Roc · Caletón Beach Club · Api Beach", "poi.8": "Cap Cana Heritage School · супермаркет · аптека · Blue Mall", "loc.note": "Примерное время в пути на автомобиле от Residencias del Parque.", "inv.eyebrow": "Для покупателя-инвестора", "inv.title": "Почему Кап-Кана и почему сейчас", "inv.1": "посетителей приняла Доминиканская Республика в 2025 году — исторический рекорд", "inv.2": "туристов прибывают через аэропорт Пунта-Кана, примерно в десяти минутах от виллы", "inv.3": "рынок недвижимости Кап-Каны номинирован в долларах США при устойчивом международном спросе", "inv.4": "закрытый, сложившийся посёлок: гольф, марина, пляжи и школа на территории", "inv.p1": "Актив для элитной аренды", "inv.p1s": "Шесть спален, бассейн и кинозал — самый востребованный формат у семей и групп в высокий сезон, с профессиональным управлением в Кап-Кане.", "inv.p2": "Покупка на стадии проекта по сегодняшней цене", "inv.p2s": "Сопоставимые виллы в Residencias del Parque предлагаются за 1,4–1,7 млн USD; Villa Oliva добавляет шесть спален, двойную высоту и готовый рабочий проект.", "inv.p3": "Ограниченный строительный риск", "inv.p3s": "Проект, согласования и надзор от одного бюро, с еженедельным контролем через VillaTracker из любой точки мира.", "inv.src": "Источники: Министерство туризма Доминиканской Республики (январь 2026); публичные объявления о виллах в Residencias del Parque (ноябрь 2026). Ориентировочная информация, не является инвестиционной рекомендацией."}}).forEach(([l,d])=>Object.assign(T[l],d));
 Object.entries({"es": {"t.tag": "Seguimiento de obra · Construction tracking", "t.pill": "Actualización semanal · Weekly updates", "t.ill": "Pantallas ilustrativas de la aplicación"}, "en": {"t.tag": "Construction tracking", "t.pill": "Weekly updates", "t.ill": "Illustrative app screens"}, "fr": {"t.tag": "Suivi de chantier", "t.pill": "Mise à jour hebdomadaire", "t.ill": "Écrans illustratifs de l'application"}, "pt": {"t.tag": "Acompanhamento de obra", "t.pill": "Atualização semanal", "t.ill": "Ecrãs ilustrativos da aplicação"}, "de": {"t.tag": "Baufortschritt verfolgen", "t.pill": "Wöchentliche Updates", "t.ill": "Beispielhafte App-Bildschirme"}, "it": {"t.tag": "Monitoraggio del cantiere", "t.pill": "Aggiornamento settimanale", "t.ill": "Schermate illustrative dell'app"}, "ru": {"t.tag": "Контроль строительства", "t.pill": "Еженедельные обновления", "t.ill": "Иллюстративные экраны приложения"}}).forEach(([l,d])=>Object.assign(T[l],d));
+Object.entries({"es": {"intro.skip": "Saltar", "act.dossier": "Dossier", "act.gallery": "Galería", "act.call": "Llamar", "act.fab": "Solicitar llamada", "hw.1": "Piedra", "hw.2": "Luz", "hw.3": "Proporción", "aq.eyebrow": "El arquitecto", "aq.quote": "«Quise que la casa pareciera haber estado siempre ahí: piedra clara, sombra profunda y una luz que entra por todas partes.»", "aq.role": "Arquitecto · GSB Guerrero-Strachan & Braun"}, "en": {"intro.skip": "Skip", "act.dossier": "Dossier", "act.gallery": "Gallery", "act.call": "Call", "act.fab": "Request a call", "hw.1": "Stone", "hw.2": "Light", "hw.3": "Proportion", "aq.eyebrow": "The architect", "aq.quote": "“I wanted the house to feel as if it had always been there: pale stone, deep shade and light coming in from everywhere.”", "aq.role": "Architect · GSB Guerrero-Strachan & Braun"}, "fr": {"intro.skip": "Passer", "act.dossier": "Dossier", "act.gallery": "Galerie", "act.call": "Appeler", "act.fab": "Demander un appel", "hw.1": "Pierre", "hw.2": "Lumière", "hw.3": "Proportion", "aq.eyebrow": "L'architecte", "aq.quote": "« Je voulais que la maison semble avoir toujours été là : pierre claire, ombre profonde et une lumière qui entre de partout. »", "aq.role": "Architecte · GSB Guerrero-Strachan & Braun"}, "pt": {"intro.skip": "Saltar", "act.dossier": "Dossiê", "act.gallery": "Galeria", "act.call": "Ligar", "act.fab": "Pedir chamada", "hw.1": "Pedra", "hw.2": "Luz", "hw.3": "Proporção", "aq.eyebrow": "O arquiteto", "aq.quote": "«Quis que a casa parecesse ter estado sempre ali: pedra clara, sombra profunda e uma luz que entra por todo o lado.»", "aq.role": "Arquiteto · GSB Guerrero-Strachan & Braun"}, "de": {"intro.skip": "Überspringen", "act.dossier": "Dossier", "act.gallery": "Galerie", "act.call": "Anrufen", "act.fab": "Rückruf anfordern", "hw.1": "Stein", "hw.2": "Licht", "hw.3": "Proportion", "aq.eyebrow": "Der Architekt", "aq.quote": "„Ich wollte, dass das Haus wirkt, als hätte es schon immer dort gestanden: heller Stein, tiefer Schatten und Licht, das von überall hereinfällt.“", "aq.role": "Architekt · GSB Guerrero-Strachan & Braun"}, "it": {"intro.skip": "Salta", "act.dossier": "Dossier", "act.gallery": "Galleria", "act.call": "Chiama", "act.fab": "Richiedi una chiamata", "hw.1": "Pietra", "hw.2": "Luce", "hw.3": "Proporzione", "aq.eyebrow": "L'architetto", "aq.quote": "«Volevo che la casa sembrasse essere sempre stata lì: pietra chiara, ombra profonda e una luce che entra da ogni parte.»", "aq.role": "Architetto · GSB Guerrero-Strachan & Braun"}, "ru": {"intro.skip": "Пропустить", "act.dossier": "Досье", "act.gallery": "Галерея", "act.call": "Позвонить", "act.fab": "Заказать звонок", "hw.1": "Камень", "hw.2": "Свет", "hw.3": "Пропорция", "aq.eyebrow": "Архитектор", "aq.quote": "«Я хотел, чтобы дом выглядел так, будто стоял здесь всегда: светлый камень, глубокая тень и свет, входящий отовсюду».", "aq.role": "Архитектор · GSB Guerrero-Strachan & Braun"}}).forEach(([l,d])=>Object.assign(T[l],d));
 T.es.sent='Gracias. Te responderemos en breve a la dirección indicada. También puedes escribir directamente a estudio@miguelbraun.com.';
 
 const ORIG={};
@@ -938,7 +1011,7 @@ setLang(saved||'es');
 
 /* nav */
 const nav=document.getElementById('nav');
-const onScroll=()=>nav.classList.toggle('solid',window.scrollY>60);
+const onScroll=()=>{const top=document.getElementById('top');const g=document.getElementById('grow');const inHero=top&&scrollY<top.offsetHeight-innerHeight*.5;const inGrow=g&&g.classList.contains('full')&&scrollY>g.offsetTop-10&&scrollY<g.offsetTop+g.offsetHeight-innerHeight*.6;nav.classList.toggle('solid',scrollY>60&&!inHero&&!inGrow);nav.classList.toggle('onimg',inHero||inGrow)};
 window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
 const mob=document.getElementById('mobile');
 document.getElementById('burger').onclick=()=>mob.classList.add('open');
@@ -972,13 +1045,53 @@ document.querySelectorAll('[data-img]').forEach(box=>{
 });
 
 /* ===== immersive JS ===== */
-// hero night layer + toggle
-(function(){const hero=document.getElementById('top');const media=hero.querySelector('.media');
+// hero night layer + toggle (manual override) + pinned scroll
+(function(){const pin=document.getElementById('top');const hero=pin.querySelector('.hero');const media=hero.querySelector('.media');
  const n=new Image();n.className='night';n.alt='';n.src=media.dataset.night;n.onload=()=>media.appendChild(n);
- hero.querySelectorAll('.daynight button').forEach(b=>b.onclick=()=>{hero.classList.toggle('night',b.dataset.mode==='night');hero.querySelectorAll('.daynight button').forEach(x=>x.classList.toggle('on',x===b))});
- // auto preview of night after a while, once
- let done=false;window.addEventListener('scroll',()=>{if(!done&&window.scrollY>80){done=true}},{passive:true});
- setTimeout(()=>{if(!done&&!hero.classList.contains('night')){hero.querySelector('[data-mode=night]').click();setTimeout(()=>{if(window.scrollY<80)hero.querySelector('[data-mode=day]').click()},5000)}},7000);
+ let manual=null;
+ hero.querySelectorAll('.daynight button').forEach(b=>b.onclick=()=>{manual=b.dataset.mode;hero.querySelectorAll('.daynight button').forEach(x=>x.classList.toggle('on',x===b));tick()});
+ const words=[...hero.querySelectorAll('.hero-words span')];
+ const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+ function tick(){const r=pin.getBoundingClientRect();const total=pin.offsetHeight-innerHeight;const p=clamp(-r.top/total,0,1);
+  const day=media.querySelector('img:not(.night)');const night=media.querySelector('.night');
+  const nightAmt=manual==='night'?1:manual==='day'?0:clamp((p-.15)/.45,0,1);
+  if(night)night.style.opacity=nightAmt;
+  const s=1+p*.14; media.querySelectorAll('img').forEach(i=>i.style.transform=`scale(${s}) translateY(${-p*3}%)`);
+  hero.classList.toggle('words',p>.22);
+  words.forEach((w,i)=>{const a=clamp((p-(.28+i*.14))/.14,0,1);const out=clamp((p-.92)/.08,0,1);w.style.opacity=a*(1-out);w.style.transform=`translateY(${(1-a)*40}px)`});
+  if(manual&&p<.05){/* keep manual state at top */}
+ }
+ addEventListener('scroll',()=>requestAnimationFrame(tick),{passive:true});addEventListener('resize',tick);setTimeout(tick,50);
+})();
+// growing pool band
+(function(){const g=document.getElementById('grow');if(!g)return;const img=g.querySelector('.grow-img');const pic=img.querySelector('img');
+ const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+ const wide=()=>innerWidth<=900;
+ function tick(){const r=g.getBoundingClientRect();const total=g.offsetHeight-innerHeight;const p=clamp(-r.top/total,0,1);
+  const e=1-Math.pow(1-clamp(p/.7,0,1),3); const w0=wide()?82:56; const wv=w0+(100-w0)*e;
+  img.style.width=wv+'vw'; img.style.borderRadius=(6*(1-e))+'px'; img.style.aspectRatio=e>.98?'auto':''; img.style.height=e>.98?'100svh':'';
+  if(wide()&&e<=.98){img.style.aspectRatio='4/5'} else if(e<=.98){img.style.aspectRatio='16/9'}
+  pic.style.transform=`scale(${1.08-.08*e+p*.06})`;
+  g.classList.toggle('full',e>.97);
+ }
+ addEventListener('scroll',()=>requestAnimationFrame(tick),{passive:true});addEventListener('resize',tick);tick();
+})();
+// intro overlay
+(function(){const ov=document.getElementById('introOv');let seen=false;try{seen=sessionStorage.getItem('vo-intro')==='1'}catch(e){}
+ const close=()=>{ov.classList.add('out');try{sessionStorage.setItem('vo-intro','1')}catch(e){}};
+ if(seen){ov.style.transition='none';close()} else {setTimeout(close,2600);document.getElementById('introSkip').onclick=close;}
+})();
+// action bar + fab
+(function(){const a=document.getElementById('actions'),f=document.querySelector('.fab');
+ const t=()=>{const on=scrollY>innerHeight*.9;a.classList.toggle('show',on);f.classList.toggle('show',on)};
+ addEventListener('scroll',t,{passive:true});t();
+ document.getElementById('actGallery').onclick=()=>{const first=document.querySelector('.mosaic .frame img');if(first)first.click();else location.hash='#spaces'};
+})();
+// count-up
+(function(){const els=[...document.querySelectorAll('[data-count]')];if(!els.length)return;
+ const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;io.unobserve(e.target);const el=e.target,end=+el.dataset.count,t0=performance.now(),d=1400;
+  const step=now=>{const p=Math.min(1,(now-t0)/d);const v=Math.round(end*(1-Math.pow(1-p,3)));el.textContent=v;if(p<1)requestAnimationFrame(step)};requestAnimationFrame(step)}),{threshold:.6});
+ els.forEach(el=>io.observe(el));
 })();
 // comparator
 (function(){const c=document.getElementById('cmp');if(!c)return;let drag=false;
