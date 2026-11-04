@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Villa Oliva · Cap Cana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --trav:#E3D8C6; --lime:#D3C3A8; --plaster:#ECE5D9; --oak:#B39572; --bronze:#7A5C3E; --olive:#7C7F5C;
+  --ink:#2B2620; --ink2:#5A5047; --paper:#F6F1E9; --white:#FFFDF9;
+  --serif:'Cormorant Garamond',Georgia,serif; --sans:'Jost',system-ui,sans-serif;
+  --max:1240px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);font-weight:300;color:var(--ink);background:var(--paper);line-height:1.6;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,.serif{font-family:var(--serif);font-weight:400;line-height:1.1}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--bronze);font-weight:400}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 32px}
+section{padding:112px 0}
+.center{text-align:center}
+.lead{font-family:var(--serif);font-size:clamp(20px,2.2vw,26px);line-height:1.45;color:var(--ink2);font-weight:300}
+p.body{max-width:62ch;color:var(--ink2);font-size:16px}
+hr.rule{border:0;height:1px;background:linear-gradient(90deg,transparent,var(--oak),transparent);margin:0 auto;width:120px}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;padding:22px 0;transition:background .4s,box-shadow .4s,padding .4s;color:var(--white)}
+nav.solid{background:rgba(246,241,233,.92);backdrop-filter:blur(12px);color:var(--ink);padding:14px 0;box-shadow:0 1px 0 rgba(43,38,32,.06)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{font-family:var(--serif);font-size:22px;letter-spacing:.14em;text-transform:uppercase;font-weight:400}
+.brand small{display:block;font-family:var(--sans);font-size:9px;letter-spacing:.34em;opacity:.75;margin-top:2px}
+.menu{display:flex;gap:28px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:400}
+.menu a{opacity:.85;transition:opacity .2s}
+.menu a:hover{opacity:1}
+.lang{position:relative}
+.lang button{background:transparent;border:1px solid currentColor;color:inherit;font:inherit;font-size:11px;letter-spacing:.2em;padding:7px 12px;cursor:pointer;border-radius:999px;display:flex;align-items:center;gap:8px;opacity:.9}
+.lang ul{position:absolute;right:0;top:calc(100% + 8px);background:var(--white);color:var(--ink);list-style:none;min-width:170px;box-shadow:0 18px 50px rgba(43,38,32,.18);border-radius:4px;overflow:hidden;display:none}
+.lang.open ul{display:block}
+.lang li{padding:11px 16px;font-size:13px;cursor:pointer;display:flex;justify-content:space-between;gap:12px}
+.lang li:hover{background:var(--plaster)}
+.lang li.on{color:var(--bronze);font-weight:500}
+.burger{display:none;background:none;border:0;color:inherit;font-size:22px;cursor:pointer}
+@media(max-width:900px){.menu{display:none}.burger{display:block}}
+
+/* HERO */
+.hero{position:relative;height:100svh;min-height:640px;display:flex;align-items:flex-end;color:var(--white);overflow:hidden}
+.hero .media{position:absolute;inset:0}.hero .media img{width:100%;height:100%;object-fit:cover}
+.hero .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,16,12,.35) 0%,rgba(20,16,12,0) 35%,rgba(20,16,12,.55) 100%)}
+.hero .wrap{position:relative;padding-bottom:88px;width:100%}
+.hero h1{font-size:clamp(56px,9vw,132px);letter-spacing:.02em;font-weight:300;line-height:.95}
+.hero h1 em{font-style:italic;font-weight:300}
+.hero .sub{margin-top:22px;font-size:14px;letter-spacing:.28em;text-transform:uppercase;opacity:.9}
+.hero .meta{margin-top:40px;display:flex;gap:48px;flex-wrap:wrap;font-size:13px;letter-spacing:.08em}
+.hero .meta b{display:block;font-family:var(--serif);font-size:30px;font-weight:300;letter-spacing:0;line-height:1}
+.scroll{position:absolute;right:40px;bottom:40px;writing-mode:vertical-rl;font-size:10px;letter-spacing:.34em;text-transform:uppercase;opacity:.75;display:flex;gap:12px;align-items:center}
+.scroll:after{content:"";width:1px;height:56px;background:currentColor;animation:drop 2.2s infinite}
+@keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* PLACEHOLDER ART */
+.ph{position:absolute;inset:0;overflow:hidden;background:linear-gradient(160deg,#CBBBA2 0%,#B9A587 45%,#8E7A5E 100%)}
+.ph svg{position:absolute;inset:0;width:100%;height:100%}
+.ph .tag{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:var(--sans);font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:rgba(255,253,249,.7);border:1px solid rgba(255,253,249,.4);padding:10px 16px;border-radius:999px;white-space:nowrap}
+.frame{position:relative;overflow:hidden;background:var(--lime)}
+.frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s ease}
+.frame:hover img{transform:scale(1.03)}
+
+/* INTRO */
+.intro .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:80px;align-items:center}
+.intro h2{font-size:clamp(38px,4.4vw,64px);margin:18px 0 28px;font-weight:300}
+.intro .frame{aspect-ratio:4/5;border-radius:220px 220px 4px 4px}
+@media(max-width:900px){.intro .grid{grid-template-columns:1fr;gap:48px}}
+
+/* FACTS */
+.facts{background:var(--plaster);padding:80px 0}
+.facts .row{display:grid;grid-template-columns:repeat(6,1fr);gap:24px;text-align:center}
+.facts b{display:block;font-family:var(--serif);font-size:clamp(36px,3.6vw,52px);font-weight:300;line-height:1;color:var(--ink)}
+.facts span{display:block;margin-top:10px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--bronze)}
+@media(max-width:900px){.facts .row{grid-template-columns:repeat(3,1fr);gap:36px 16px}}
+@media(max-width:520px){.facts .row{grid-template-columns:repeat(2,1fr)}}
+
+/* GALLERY */
+.gallery .top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px;gap:24px;flex-wrap:wrap}
+.gallery h2{font-size:clamp(36px,4vw,56px);font-weight:300;margin-top:14px}
+.mosaic{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:220px;gap:16px}
+.mosaic .frame{border-radius:3px}
+.mosaic .a{grid-column:span 7;grid-row:span 2}
+.mosaic .b{grid-column:span 5;grid-row:span 1}
+.mosaic .c{grid-column:span 5;grid-row:span 1}
+.mosaic .d{grid-column:span 4;grid-row:span 1}
+.mosaic .e{grid-column:span 4;grid-row:span 1}
+.mosaic .f{grid-column:span 4;grid-row:span 1}
+.cap{position:absolute;left:18px;bottom:16px;color:var(--white);font-size:11px;letter-spacing:.22em;text-transform:uppercase;z-index:2;text-shadow:0 1px 12px rgba(0,0,0,.4)}
+@media(max-width:900px){.mosaic{grid-auto-rows:180px}.mosaic .a{grid-column:span 12}.mosaic .b,.mosaic .c{grid-column:span 6}.mosaic .d,.mosaic .e,.mosaic .f{grid-column:span 12}}
+
+/* QUOTE BAND */
+.band{background:var(--olive);color:var(--plaster);padding:120px 0;text-align:center}
+.band blockquote{font-family:var(--serif);font-size:clamp(28px,3.6vw,48px);font-weight:300;font-style:italic;max-width:22ch;margin:0 auto;line-height:1.25}
+.band .eyebrow{color:var(--trav);margin-top:28px}
+
+/* PROGRAM */
+.program .grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:72px;align-items:start}
+.program h2{font-size:clamp(36px,4vw,56px);font-weight:300;margin:14px 0 20px}
+.tabs{display:flex;gap:4px;border-bottom:1px solid rgba(43,38,32,.15);margin:36px 0 8px}
+.tabs button{background:none;border:0;font:inherit;font-size:12px;letter-spacing:.2em;text-transform:uppercase;padding:14px 22px;cursor:pointer;color:var(--ink2);position:relative}
+.tabs button.on{color:var(--ink)}
+.tabs button.on:after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--bronze)}
+.rooms{list-style:none}
+.rooms li{display:flex;justify-content:space-between;align-items:baseline;padding:13px 0;border-bottom:1px dashed rgba(43,38,32,.15);font-size:15px}
+.rooms li span:last-child{font-family:var(--serif);font-size:20px;color:var(--bronze)}
+.rooms li.note{border:0;font-size:13px;color:var(--ink2);font-style:italic;padding-top:18px;display:block}
+.pane{display:none}.pane.on{display:block}
+.plan{aspect-ratio:4/3;border-radius:3px;background:var(--white);border:1px solid rgba(43,38,32,.08)}
+.plan .ph{background:var(--white)}.plan img{object-fit:contain;background:#fff}
+.plan .ph .tag{color:var(--bronze);border-color:var(--oak)}
+@media(max-width:900px){.program .grid{grid-template-columns:1fr;gap:40px}}
+
+/* MATERIALS */
+.materials{background:var(--white)}
+.materials h2{font-size:clamp(36px,4vw,56px);font-weight:300;margin:14px 0 48px}
+.swatches{display:grid;grid-template-columns:repeat(6,1fr);gap:18px}
+.sw{aspect-ratio:3/4;border-radius:2px;position:relative;display:flex;align-items:flex-end;padding:14px;box-shadow:inset 0 0 0 1px rgba(43,38,32,.06)}
+.sw span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:400}
+.sw.dark span{color:var(--plaster)}
+.matlist{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 48px;margin-top:56px;font-size:15px;color:var(--ink2)}
+.matlist div{padding-left:22px;position:relative}
+.matlist div:before{content:"—";position:absolute;left:0;color:var(--bronze)}
+@media(max-width:900px){.swatches{grid-template-columns:repeat(3,1fr)}.matlist{grid-template-columns:1fr}}
+
+/* FEATURE ROWS */
+.feature{display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:stretch}
+.feature .frame{min-height:560px}
+.feature .text{padding:96px 10vw;display:flex;flex-direction:column;justify-content:center;background:var(--paper)}
+.feature.alt .text{order:-1;background:var(--plaster)}
+.feature h3{font-size:clamp(32px,3.4vw,48px);font-weight:300;margin:14px 0 20px}
+@media(max-width:900px){.feature{grid-template-columns:1fr}.feature .frame{min-height:360px}.feature.alt .text{order:0}.feature .text{padding:64px 32px}}
+
+/* OUTDOOR LIST */
+.outdoor{background:var(--olive);color:var(--plaster)}
+.outdoor .eyebrow{color:var(--trav)}
+.outdoor h2{font-size:clamp(36px,4vw,56px);font-weight:300;margin:14px 0 48px;max-width:16ch}
+.outdoor .items{display:grid;grid-template-columns:repeat(3,1fr);gap:28px 40px}
+.outdoor .items div{border-top:1px solid rgba(236,229,217,.3);padding-top:18px}
+.outdoor .items b{display:block;font-family:var(--serif);font-size:26px;font-weight:300;margin-bottom:4px}
+.outdoor .items span{font-size:14px;opacity:.8}
+@media(max-width:900px){.outdoor .items{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.outdoor .items{grid-template-columns:1fr}}
+
+/* LOCATION */
+.location .grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.location h2{font-size:clamp(36px,4vw,56px);font-weight:300;margin:14px 0 20px}
+.pois{list-style:none;margin-top:28px}
+.pois li{display:flex;gap:18px;align-items:center;padding:14px 0;border-bottom:1px solid rgba(43,38,32,.1);font-size:15px}
+.pois li i{width:34px;height:34px;border-radius:50%;border:1px solid var(--oak);display:grid;place-items:center;font-style:normal;color:var(--bronze);font-size:13px;flex:none}
+.map{aspect-ratio:1/1;border-radius:50%;background:radial-gradient(circle at 50% 50%,var(--plaster) 0,var(--trav) 55%,var(--lime) 100%);position:relative;overflow:hidden;border:1px solid rgba(43,38,32,.08)}
+.map img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.mapcap{position:absolute;left:0;right:0;bottom:12%;text-align:center;color:var(--white);z-index:2;text-shadow:0 2px 16px rgba(0,0,0,.45)}
+@media(max-width:900px){.location .grid{grid-template-columns:1fr}}
+
+/* UTILITIES */
+.util{background:var(--white)}
+.util h2{font-size:clamp(32px,3.6vw,48px);font-weight:300;margin:14px 0 48px}
+.util .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.util .card{background:var(--paper);padding:32px 28px;border-radius:3px;border:1px solid rgba(43,38,32,.06)}
+.util .card b{display:block;font-family:var(--serif);font-size:24px;font-weight:400;margin-bottom:10px}
+.util .card p{font-size:14px;color:var(--ink2)}
+@media(max-width:900px){.util .cards{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.util .cards{grid-template-columns:1fr}}
+
+/* TRACKER */
+.tracker .grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.tracker h2{font-size:clamp(36px,4vw,56px);font-weight:300;margin:14px 0 20px}
+.steps{list-style:none;margin-top:32px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:44px 1fr;gap:16px;padding:16px 0;border-bottom:1px solid rgba(43,38,32,.1)}
+.steps li:before{counter-increment:s;content:"0" counter(s);font-family:var(--serif);font-size:26px;color:var(--bronze);line-height:1}
+.steps b{display:block;font-weight:500;font-size:15px}
+.steps span{font-size:14px;color:var(--ink2)}
+.phone{width:min(300px,80%);margin:0 auto;aspect-ratio:9/19;border-radius:40px;background:var(--ink);padding:14px;box-shadow:0 40px 80px rgba(43,38,32,.25)}
+.phone .scr{height:100%;border-radius:28px;background:var(--paper);padding:26px 20px;font-size:12px;overflow:hidden}
+.phone .scr .h{font-family:var(--serif);font-size:20px;margin:14px 0 2px}
+.phone .scr .s{color:var(--ink2);font-size:11px}
+.phone .bar{height:6px;background:var(--trav);border-radius:3px;margin:16px 0 6px;overflow:hidden}
+.phone .bar i{display:block;height:100%;width:34%;background:var(--olive)}
+.phone .card{background:var(--white);border-radius:12px;padding:12px;margin-top:12px;border:1px solid rgba(43,38,32,.06)}
+.phone .card b{display:block;font-weight:500}
+.phone .card small{color:var(--ink2)}
+@media(max-width:900px){.tracker .grid{grid-template-columns:1fr}}
+
+/* STUDIO */
+.studio{background:var(--ink);color:var(--plaster);text-align:center}
+.studio .eyebrow{color:var(--oak)}
+.studio h2{font-size:clamp(34px,4vw,56px);font-weight:300;margin:14px auto 24px;max-width:18ch}
+.studio p{max-width:60ch;margin:0 auto;opacity:.8;font-size:16px}
+.studio .links{margin-top:36px;display:flex;gap:32px;justify-content:center;font-size:12px;letter-spacing:.2em;text-transform:uppercase}
+.studio .links a{border-bottom:1px solid var(--oak);padding-bottom:4px}
+
+/* CONTACT */
+.contact .grid{display:grid;grid-template-columns:1fr 1fr;gap:72px}
+.contact h2{font-size:clamp(36px,4vw,56px);font-weight:300;margin:14px 0 20px}
+.contact .info{margin-top:32px;font-size:16px;line-height:2}
+.contact .info b{font-weight:500;letter-spacing:.04em}
+form{display:grid;gap:18px}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+label{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--bronze);display:block;margin-bottom:6px}
+input,textarea,select{width:100%;background:var(--white);border:1px solid rgba(43,38,32,.18);padding:14px 16px;font:inherit;font-size:15px;color:var(--ink);border-radius:2px}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--bronze)}
+textarea{min-height:130px;resize:vertical}
+.btn{background:var(--ink);color:var(--plaster);border:0;padding:18px 36px;font:inherit;font-size:12px;letter-spacing:.24em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:background .2s}
+.btn:hover{background:var(--bronze)}
+.sent{display:none;background:var(--plaster);padding:24px;border-left:3px solid var(--olive);font-size:15px}
+@media(max-width:900px){.contact .grid{grid-template-columns:1fr;gap:40px}.f2{grid-template-columns:1fr}}
+
+footer{padding:40px 0;font-size:12px;color:var(--ink2);border-top:1px solid rgba(43,38,32,.08)}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .9s ease,transform .9s ease}
+.rv.in{opacity:1;transform:none}
+
+/* mobile menu */
+.mobile{position:fixed;inset:0;background:var(--paper);z-index:60;display:none;flex-direction:column;align-items:center;justify-content:center;gap:28px;font-family:var(--serif);font-size:30px}
+.mobile.open{display:flex}
+.mobile .x{position:absolute;top:22px;right:28px;font-size:28px;background:none;border:0;cursor:pointer}
+
+/* ===== immersive ===== */
+.hero .media img{transform-origin:50% 60%;animation:kb 22s ease-in-out infinite alternate}
+@keyframes kb{from{transform:scale(1.02)}to{transform:scale(1.12) translateY(-1.5%)}}
+.hero .media .night{position:absolute;inset:0;opacity:0;transition:opacity 1.6s ease}
+.hero.night .media .night{opacity:1}
+.daynight{position:absolute;right:40px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:6px;z-index:3}
+.daynight button{width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,253,249,.5);background:rgba(20,16,12,.25);backdrop-filter:blur(6px);color:var(--white);font-size:17px;cursor:pointer;transition:background .3s}
+.daynight button.on{background:var(--white);color:var(--ink)}
+@media(max-width:900px){.daynight{right:20px;top:auto;bottom:24px;transform:none;flex-direction:row}.scroll{display:none}}
+
+/* comparator */
+.compare{padding:0 0 112px}
+.compare h2{font-size:clamp(36px,4vw,56px);font-weight:300;margin:14px 0 36px}
+.cmp{position:relative;aspect-ratio:16/9;overflow:hidden;border-radius:3px;user-select:none;touch-action:none;cursor:ew-resize;background:var(--ink)}
+.cmp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.cmp .day{clip-path:inset(0 calc(100% - var(--x,50%)) 0 0)}
+.cmp .handle{position:absolute;top:0;bottom:0;left:var(--x,50%);width:1px;background:rgba(255,253,249,.85);transform:translateX(-.5px)}
+.cmp .handle:after{content:"◂ ▸";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;background:var(--white);color:var(--ink);display:grid;place-items:center;font-size:13px;letter-spacing:1px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.cmp .lbl{position:absolute;bottom:18px;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--white);text-shadow:0 1px 10px rgba(0,0,0,.5)}
+.cmp .lbl.l{left:20px}.cmp .lbl.r{right:20px}
+
+/* parallax full-bleed bands */
+.px{position:relative;min-height:88svh;display:flex;align-items:center;justify-content:center;overflow:hidden;color:var(--white);text-align:center}
+.px .bg{position:absolute;inset:-18% 0;background-size:cover;background-position:center;will-change:transform}
+.px .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,16,12,.25),rgba(20,16,12,.55))}
+.px .wrap{position:relative}
+.px blockquote{font-family:var(--serif);font-size:clamp(30px,4vw,56px);font-weight:300;font-style:italic;max-width:22ch;margin:0 auto;line-height:1.2;text-shadow:0 2px 24px rgba(0,0,0,.35)}
+.px .eyebrow{color:var(--trav);margin-top:28px}
+
+/* clip reveal */
+.frame.rv{clip-path:inset(12% 0 12% 0);transform:none;opacity:1;transition:clip-path 1.3s cubic-bezier(.2,.7,.2,1)}
+.frame.rv.in{clip-path:inset(0 0 0 0)}
+.frame img{cursor:zoom-in}
+
+/* lightbox */
+.lb{position:fixed;inset:0;background:rgba(20,16,12,.96);z-index:100;display:none;align-items:center;justify-content:center;flex-direction:column}
+.lb.open{display:flex}
+.lb img{max-width:92vw;max-height:82vh;object-fit:contain;box-shadow:0 30px 80px rgba(0,0,0,.5);animation:lbin .5s ease}
+@keyframes lbin{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:none}}
+.lb .c{margin-top:18px;color:var(--plaster);font-size:11px;letter-spacing:.28em;text-transform:uppercase}
+.lb button{position:absolute;background:none;border:0;color:var(--plaster);font-size:34px;cursor:pointer;padding:20px;opacity:.75}
+.lb button:hover{opacity:1}
+.lb .x{top:10px;right:16px}.lb .p{left:6px;top:50%;transform:translateY(-50%)}.lb .n{right:6px;top:50%;transform:translateY(-50%)}
+
+/* plan hotspots */
+.plan{position:relative}
+.hs{position:absolute;border:1px solid transparent;border-radius:3px;cursor:pointer;transition:background .25s,border-color .25s}
+.hs:hover,.hs.on{background:rgba(124,127,92,.28);border-color:rgba(124,127,92,.9)}
+.hs b{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) translateY(6px);background:var(--ink);color:var(--plaster);font-weight:400;font-size:11px;letter-spacing:.08em;padding:7px 11px;border-radius:2px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:3}
+.hs b small{display:block;color:var(--oak);font-size:10px;letter-spacing:.12em}
+.hs:hover b,.hs.on b{opacity:1;transform:translate(-50%,-50%)}
+.rooms li{cursor:pointer;transition:color .2s}
+.rooms li:hover,.rooms li.on{color:var(--bronze)}
+.planhint{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink2);margin-top:12px;text-align:center}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="wrap">
+    <a href="#top" class="brand">Villa Oliva<small>El Parque 42 · Cap Cana</small></a>
+    <div class="menu">
+      <a href="#villa" data-i18n="nav.villa">La villa</a>
+      <a href="#spaces" data-i18n="nav.spaces">Espacios</a>
+      <a href="#program" data-i18n="nav.program">Plantas</a>
+      <a href="#materials" data-i18n="nav.materials">Materiales</a>
+      <a href="#location" data-i18n="nav.location">Ubicación</a>
+      <a href="#contact" data-i18n="nav.contact">Contacto</a>
+    </div>
+    <div style="display:flex;gap:14px;align-items:center">
+      <div class="lang" id="lang">
+        <button type="button" id="langBtn" aria-haspopup="listbox"><span id="langCur">ES</span> ▾</button>
+        <ul id="langList"></ul>
+      </div>
+      <button class="burger" id="burger" aria-label="menu">☰</button>
+    </div>
+  </div>
+</nav>
+<div class="mobile" id="mobile">
+  <button class="x" id="mx">×</button>
+  <a href="#villa" data-i18n="nav.villa">La villa</a>
+  <a href="#spaces" data-i18n="nav.spaces">Espacios</a>
+  <a href="#program" data-i18n="nav.program">Plantas</a>
+  <a href="#materials" data-i18n="nav.materials">Materiales</a>
+  <a href="#location" data-i18n="nav.location">Ubicación</a>
+  <a href="#contact" data-i18n="nav.contact">Contacto</a>
+</div>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="media" data-img="hero" data-night="img/hero-night.jpg"><div class="ph">
+    <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+      <defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D9CBB4"/><stop offset="1" stop-color="#B7A288"/></linearGradient></defs>
+      <rect width="1600" height="900" fill="url(#sky)"/>
+      <g fill="#8E7A5E" opacity=".35"><rect x="300" y="300" width="1000" height="420"/><rect x="200" y="420" width="140" height="300"/><rect x="1260" y="420" width="140" height="300"/></g>
+      <g fill="#ECE5D9" opacity=".5"><rect x="560" y="330" width="22" height="380"/><rect x="700" y="330" width="22" height="380"/><rect x="840" y="330" width="22" height="380"/><rect x="980" y="330" width="22" height="380"/></g>
+      <rect x="0" y="720" width="1600" height="180" fill="#9FB1A3" opacity=".55"/>
+    </svg><span class="tag" data-i18n="ph.hero">Render · vista frontal</span></div></div>
+  <div class="shade"></div>
+  <div class="wrap">
+    <p class="eyebrow" style="color:var(--trav)" data-i18n="hero.eyebrow">Cap Cana · República Dominicana</p>
+    <h1 style="margin-top:18px">Villa <em>Oliva</em></h1>
+    <p class="sub" data-i18n="hero.sub">Clasicismo mediterráneo en el Caribe</p>
+    <div class="meta">
+      <div><b>879 m²</b><span data-i18n="hero.plot">Solar</span></div>
+      <div><b>6</b><span data-i18n="hero.beds">Dormitorios con baño</span></div>
+      <div><b>≈72 m²</b><span data-i18n="hero.pool">Piscina</span></div>
+      <div><b>2</b><span data-i18n="hero.levels">Niveles</span></div>
+    </div>
+  </div>
+  <div class="daynight"><button class="on" data-mode="day" title="Día">☀</button><button data-mode="night" title="Noche">☾</button></div>
+  <a href="#villa" class="scroll" data-i18n="hero.scroll">Descubrir</a>
+</header>
+
+<!-- INTRO -->
+<section class="intro" id="villa">
+  <div class="wrap grid">
+    <div class="rv">
+      <p class="eyebrow" data-i18n="intro.eyebrow">El proyecto</p>
+      <h2 data-i18n="intro.title">Piedra, luz y proporción</h2>
+      <p class="lead" data-i18n="intro.lead">Villa Oliva lleva el clasicismo mediterráneo al Caribe: dos volúmenes revestidos de travertino unidos por un gran pabellón central acristalado a doble altura, enmarcado por columnas esbeltas.</p>
+      <p class="body" style="margin-top:24px" data-i18n="intro.body">Una residencia privada de dos niveles en la Urbanización El Parque de Cap Cana, que se abre por completo al jardín, a la piscina y a la luz. Seis dormitorios con baño, sala de cine, cocina con isla y cocina caliente, suite de invitados en planta baja y un exterior pensado como una estancia más.</p>
+    </div>
+    <div class="frame rv" data-img="rear"><div class="ph">
+      <svg viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice"><rect width="800" height="1000" fill="#C9B99F"/><rect x="0" y="620" width="800" height="380" fill="#9FB1A3" opacity=".6"/><g fill="#ECE5D9" opacity=".55"><rect x="150" y="300" width="18" height="320"/><rect x="300" y="300" width="18" height="320"/><rect x="480" y="300" width="18" height="320"/><rect x="630" y="300" width="18" height="320"/></g><rect x="120" y="270" width="560" height="26" fill="#ECE5D9" opacity=".6"/></svg>
+      <span class="tag" data-i18n="ph.rear">Render · vista trasera</span></div></div>
+  </div>
+</section>
+
+
+<!-- DAY / NIGHT -->
+<section class="compare">
+  <div class="wrap">
+    <div class="rv"><p class="eyebrow" data-i18n="dn.eyebrow">Del día a la noche</p><h2 data-i18n="dn.title">La misma casa, dos luces</h2></div>
+    <div class="cmp rv" id="cmp" style="--x:55%">
+      <img class="night" src="img/hero-night.jpg" alt="">
+      <img class="day" src="img/hero.jpg" alt="">
+      <div class="handle"></div>
+      <span class="lbl l" data-i18n="dn.day">Día</span><span class="lbl r" data-i18n="dn.night">Noche</span>
+    </div>
+  </div>
+</section>
+
+<!-- FACTS -->
+<section class="facts">
+  <div class="wrap">
+    <p class="eyebrow center" style="margin-bottom:48px" data-i18n="facts.eyebrow">Ficha técnica</p>
+    <div class="row rv">
+      <div><b>879</b><span data-i18n="facts.plot">m² de solar</span></div>
+      <div><b>6</b><span data-i18n="facts.beds">Dormitorios en suite</span></div>
+      <div><b>6+1</b><span data-i18n="facts.baths">Baños + aseo</span></div>
+      <div><b>74</b><span data-i18n="facts.living">m² salón-comedor</span></div>
+      <div><b>72</b><span data-i18n="facts.pool">m² de piscina</span></div>
+      <div><b>2</b><span data-i18n="facts.parking">Plazas cubiertas</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="spaces">
+  <div class="wrap">
+    <div class="top rv">
+      <div><p class="eyebrow" data-i18n="gal.eyebrow">Espacios</p><h2 data-i18n="gal.title">Vivir hacia la piscina</h2></div>
+      <p class="body" style="max-width:40ch" data-i18n="gal.body">Salón, comedor y suites se abren a la terraza y a la piscina a través de grandes paños de vidrio.</p>
+    </div>
+    <div class="mosaic rv">
+      <div class="frame a" data-img="living"><div class="ph" style="background:linear-gradient(160deg,#E8DFD0,#C9B99F)"><span class="tag" data-i18n="ph.living">Render · salón doble altura</span></div><span class="cap" data-i18n="cap.living">Salón a doble altura</span></div>
+      <div class="frame b" data-img="kitchen"><div class="ph" style="background:linear-gradient(160deg,#D9CBB4,#B39572)"><span class="tag" data-i18n="ph.kitchen">Render · cocina</span></div><span class="cap" data-i18n="cap.kitchen">Cocina con isla de travertino</span></div>
+      <div class="frame c" data-img="suite"><div class="ph" style="background:linear-gradient(160deg,#ECE5D9,#D3C3A8)"><span class="tag" data-i18n="ph.suite">Render · suite</span></div><span class="cap" data-i18n="cap.suite">Suite principal</span></div>
+      <div class="frame d" data-img="pool"><div class="ph" style="background:linear-gradient(160deg,#B9C7BB,#7C7F5C)"><span class="tag" data-i18n="ph.pool">Render · piscina</span></div><span class="cap" data-i18n="cap.pool">Piscina y terraza</span></div>
+      <div class="frame e" data-img="bath"><div class="ph" style="background:linear-gradient(160deg,#E3D8C6,#B39572)"><span class="tag" data-i18n="ph.bath">Render · comedor</span></div><span class="cap" data-i18n="cap.bath">Comedor junto al jardín</span></div>
+      <div class="frame f" data-img="firepit"><div class="ph" style="background:linear-gradient(160deg,#8E7A5E,#2B2620)"><span class="tag" data-i18n="ph.firepit">Render · fire pit</span></div><span class="cap" data-i18n="cap.firepit">Salón exterior con fire pit</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- BAND -->
+<section class="px" data-px="img/living.jpg">
+  <div class="bg"></div><div class="shade"></div>
+  <div class="wrap rv">
+    <blockquote data-i18n="band.quote">Travertino, estuco de cal y roble bajo una doble altura luminosa.</blockquote>
+    <p class="eyebrow" data-i18n="band.sub">Zona social · salón a doble altura</p>
+  </div>
+</section>
+
+<!-- PROGRAM -->
+<section class="program" id="program">
+  <div class="wrap grid">
+    <div class="rv">
+      <p class="eyebrow" data-i18n="prog.eyebrow">Programa</p>
+      <h2 data-i18n="prog.title">Dos niveles, una casa abierta</h2>
+      <p class="body" data-i18n="prog.body">Planta baja para la vida social y el exterior; planta alta para el descanso, con todos los dormitorios en suite y doble altura sobre el salón.</p>
+      <div class="tabs">
+        <button class="on" data-tab="l1" data-i18n="prog.l1">Nivel 1</button>
+        <button data-tab="l2" data-i18n="prog.l2">Nivel 2</button>
+      </div>
+      <div class="pane on" id="l1">
+        <ul class="rooms">
+          <li data-room="r.living"><span data-i18n="r.living">Salón-comedor</span><span>74,39 m²</span></li>
+          <li data-room="r.cinema"><span data-i18n="r.cinema">Sala de cine</span><span>64,20 m²</span></li>
+          <li data-room="r.kitchen"><span data-i18n="r.kitchen">Cocina</span><span>40,16 m²</span></li>
+          <li data-room="r.back"><span data-i18n="r.back">Cocina caliente</span><span>9,04 m²</span></li>
+          <li data-room="r.pantry"><span data-i18n="r.pantry">Despensa</span><span>3,22 m²</span></li>
+          <li data-room="r.powder"><span data-i18n="r.powder">Aseo de cortesía</span><span>3,90 m²</span></li>
+          <li data-room="r.staff"><span data-i18n="r.staff">Habitación de servicio</span><span>11,00 m²</span></li>
+          <li data-room="r.staffbath"><span data-i18n="r.staffbath">Baño de servicio</span><span>4,72 m²</span></li>
+          <li data-room="r.carport"><span data-i18n="r.carport">Marquesina · 2 coches</span><span>37,46 m²</span></li>
+          <li data-room="r.pool"><span data-i18n="r.pool">Piscina</span><span>≈ 72 m²</span></li>
+          <li class="note" data-i18n="r.note1">Incluye suite de invitados con baño, comedor exterior porticado y salón exterior con fire pit.</li>
+        </ul>
+      </div>
+      <div class="pane" id="l2">
+        <ul class="rooms">
+          <li data-room="r.b5"><span data-i18n="r.b5">Dormitorio 5</span><span>36,71 m²</span></li>
+          <li data-room="r.b5bath"><span data-i18n="r.b5bath">Baño dormitorio 5</span><span>7,82 m²</span></li>
+          <li data-room="r.bcloset"><span data-i18n="r.bcloset">Habitación con vestidor</span><span>18,72 m²</span></li>
+          <li data-room="r.b3"><span data-i18n="r.b3">Dormitorio 3</span><span>12,67 m²</span></li>
+          <li data-room="r.b3bath"><span data-i18n="r.b3bath">Baño 3</span><span>4,13 m²</span></li>
+          <li data-room="r.b2"><span data-i18n="r.b2">Dormitorio 2</span><span>12,50 m²</span></li>
+          <li data-room="r.b2bath"><span data-i18n="r.b2bath">Baño 2</span><span>3,56 m²</span></li>
+          <li class="note" data-i18n="r.note2">Un quinto dormitorio con baño completa la planta. Todos los dormitorios con baño propio y doble altura sobre el salón.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="rv">
+      <div class="plan frame pane on" id="p-l1" data-img="planPB"><div class="ph"><svg viewBox="0 0 600 600"><g fill="none" stroke="#B39572" stroke-width="2" opacity=".6"><rect x="90" y="120" width="420" height="300"/><rect x="90" y="120" width="160" height="140"/><rect x="350" y="120" width="160" height="140"/><rect x="250" y="260" width="100" height="160"/><rect x="140" y="440" width="320" height="70" stroke-dasharray="6 6"/></g></svg><span class="tag" data-i18n="ph.planPB">Planta nivel 1</span></div><div class="hs" data-room="r.kitchen" style="left:36%;top:13%;width:19%;height:20%"><b><span data-i18n="r.kitchen"></span><small>40,16 m²</small></b></div><div class="hs" data-room="r.back" style="left:28%;top:13%;width:7%;height:20%"><b><span data-i18n="r.back"></span><small>9,04 m²</small></b></div><div class="hs" data-room="r.staff" style="left:15%;top:13%;width:13%;height:21%"><b><span data-i18n="r.staff"></span><small>11,00 + 4,72 m²</small></b></div><div class="hs" data-room="r.powder" style="left:20%;top:34%;width:7%;height:8%"><b><span data-i18n="r.powder"></span><small>3,90 m²</small></b></div><div class="hs" data-room="r.pantry" style="left:27%;top:34%;width:7%;height:8%"><b><span data-i18n="r.pantry"></span><small>3,22 m²</small></b></div><div class="hs" data-room="r.living" style="left:37%;top:36%;width:18%;height:48%"><b><span data-i18n="r.living"></span><small>74,39 m²</small></b></div><div class="hs" data-room="hs.outdining" style="left:56%;top:13%;width:19%;height:21%"><b><span data-i18n="hs.outdining"></span></b></div><div class="hs" data-room="hs.firepit" style="left:63%;top:37%;width:13%;height:27%"><b><span data-i18n="hs.firepit"></span></b></div><div class="hs" data-room="hs.guest" style="left:55%;top:67%;width:21%;height:19%"><b><span data-i18n="hs.guest"></span></b></div><div class="hs" data-room="r.pool" style="left:77%;top:13%;width:12%;height:73%"><b><span data-i18n="r.pool"></span><small>≈ 72 m²</small></b></div><div class="hs" data-room="r.carport" style="left:15%;top:66%;width:22%;height:19%"><b><span data-i18n="r.carport"></span><small>37,46 m²</small></b></div><div class="hs" data-room="hs.stairs" style="left:22%;top:51%;width:15%;height:14%"><b><span data-i18n="hs.stairs"></span></b></div></div>
+      <div class="plan frame pane" id="p-l2" data-img="planP1"><div class="ph"><svg viewBox="0 0 600 600"><g fill="none" stroke="#B39572" stroke-width="2" opacity=".6"><rect x="90" y="120" width="420" height="300"/><rect x="90" y="120" width="140" height="150"/><rect x="370" y="120" width="140" height="150"/><rect x="230" y="120" width="140" height="300" stroke-dasharray="6 6"/></g></svg><span class="tag" data-i18n="ph.planP1">Planta nivel 2</span></div><div class="hs" data-room="r.bcloset" style="left:15%;top:13%;width:17%;height:12%"><b><span data-i18n="r.bcloset"></span><small>18,72 m²</small></b></div><div class="hs" data-room="hs.bath" style="left:15%;top:25%;width:17%;height:8%"><b><span data-i18n="hs.bath"></span></b></div><div class="hs" data-room="hs.sitting" style="left:15%;top:33%;width:17%;height:9%"><b><span data-i18n="hs.sitting"></span></b></div><div class="hs" data-room="hs.dressing" style="left:36%;top:13%;width:8%;height:20%"><b><span data-i18n="hs.dressing"></span></b></div><div class="hs" data-room="r.b5" style="left:44%;top:13%;width:21%;height:20%"><b><span data-i18n="r.b5"></span><small>36,71 m²</small></b></div><div class="hs" data-room="hs.void" style="left:36%;top:35%;width:28%;height:32%"><b><span data-i18n="hs.void"></span></b></div><div class="hs" data-room="r.b2" style="left:15%;top:68%;width:18%;height:19%"><b><span data-i18n="r.b2"></span><small>12,50 m²</small></b></div><div class="hs" data-room="r.b2bath" style="left:33%;top:72%;width:10%;height:13%"><b><span data-i18n="r.b2bath"></span><small>3,56 m²</small></b></div><div class="hs" data-room="r.b3bath" style="left:44%;top:72%;width:9%;height:13%"><b><span data-i18n="r.b3bath"></span><small>4,13 m²</small></b></div><div class="hs" data-room="r.b3" style="left:53%;top:68%;width:12%;height:19%"><b><span data-i18n="r.b3"></span><small>12,67 m²</small></b></div><div class="hs" data-room="hs.terrace" style="left:65%;top:68%;width:10%;height:19%"><b><span data-i18n="hs.terrace"></span></b></div><div class="hs" data-room="hs.stairs" style="left:22%;top:51%;width:13%;height:14%"><b><span data-i18n="hs.stairs"></span></b></div></div><p class="planhint" data-i18n="plan.hint">Pasa el dedo por una estancia</p>
+    </div>
+  </div>
+</section>
+
+<!-- MATERIALS -->
+<section class="materials" id="materials">
+  <div class="wrap">
+    <div class="rv">
+      <p class="eyebrow" data-i18n="mat.eyebrow">Interiorismo</p>
+      <h2 data-i18n="mat.title">Paleta y materiales</h2>
+    </div>
+    <div class="swatches rv">
+      <div class="sw" style="background:#E3D8C6"><span data-i18n="sw.trav">Travertino</span></div>
+      <div class="sw" style="background:#D3C3A8"><span data-i18n="sw.lime">Piedra caliza</span></div>
+      <div class="sw" style="background:#ECE5D9"><span data-i18n="sw.plaster">Estuco de cal</span></div>
+      <div class="sw" style="background:#B39572"><span data-i18n="sw.oak">Roble natural</span></div>
+      <div class="sw dark" style="background:#7A5C3E"><span data-i18n="sw.bronze">Bronce viejo</span></div>
+      <div class="sw dark" style="background:#7C7F5C"><span data-i18n="sw.olive">Verde oliva</span></div>
+    </div>
+    <div class="matlist rv">
+      <div data-i18n="ml.1">Travertino en suelos y revestimientos</div>
+      <div data-i18n="ml.2">Estuco de cal en paramentos</div>
+      <div data-i18n="ml.3">Lino natural y bouclé crudo</div>
+      <div data-i18n="ml.4">Roble natural en carpinterías</div>
+      <div data-i18n="ml.5">Bronce cepillado en grifería</div>
+      <div data-i18n="ml.6">Alabastro en luminarias</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<div class="feature">
+  <div class="frame" data-img="kitchen2"><div class="ph" style="background:linear-gradient(160deg,#D9CBB4,#B39572)"><span class="tag" data-i18n="ph.kitchen">Render · cocina</span></div></div>
+  <div class="text rv">
+    <p class="eyebrow" data-i18n="k.eyebrow">Cocina</p>
+    <h3 data-i18n="k.title">El corazón de la casa</h3>
+    <p class="body" data-i18n="k.body">Cocina abierta de 40 m² con isla central en travertino, apoyada por cocina caliente y despensa. Roble natural, piedra y luz cálida integrada, con salida directa al jardín.</p>
+  </div>
+</div>
+<div class="feature alt">
+  <div class="frame" data-img="suite2"><div class="ph" style="background:linear-gradient(160deg,#ECE5D9,#D3C3A8)"><span class="tag" data-i18n="ph.suite">Render · suite</span></div></div>
+  <div class="text rv">
+    <p class="eyebrow" data-i18n="s.eyebrow">Suites</p>
+    <h3 data-i18n="s.title">Un refugio privado</h3>
+    <p class="body" data-i18n="s.body">Dormitorios con baño propio en travertino, bañera exenta, ducha con luz natural y vestidor a medida en roble.</p>
+  </div>
+</div>
+
+<!-- OUTDOORS -->
+<section class="outdoor">
+  <div class="wrap">
+    <div class="rv">
+      <p class="eyebrow" data-i18n="o.eyebrow">Exterior</p>
+      <h2 data-i18n="o.title">El exterior como estancia</h2>
+    </div>
+    <div class="items rv">
+      <div><b data-i18n="o.1">Piscina de ≈ 72 m²</b><span data-i18n="o.1s">Con zona de playa interior</span></div>
+      <div><b data-i18n="o.2">Salón exterior con fire pit</b><span data-i18n="o.2s">Hundido junto al jardín</span></div>
+      <div><b data-i18n="o.3">Comedor exterior porticado</b><span data-i18n="o.3s">A la sombra de las columnas</span></div>
+      <div><b data-i18n="o.4">Jardín mediterráneo-tropical</b><span data-i18n="o.4s">Olivos, palmas y aromáticas</span></div>
+      <div><b data-i18n="o.5">Sala de cine</b><span data-i18n="o.5s">64 m² en planta baja</span></div>
+      <div><b data-i18n="o.6">Suite de invitados</b><span data-i18n="o.6s">Independiente, en planta baja</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- BAND 2 -->
+<section class="px" data-px="img/firepit.jpg" style="min-height:70svh">
+  <div class="bg"></div><div class="shade"></div>
+  <div class="wrap rv">
+    <blockquote data-i18n="band2.quote">Olivos, piedra y fuego: las noches de Cap Cana se viven fuera.</blockquote>
+    <p class="eyebrow" data-i18n="band2.sub">Salón exterior con fire pit</p>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section class="location" id="location">
+  <div class="wrap grid">
+    <div class="rv">
+      <p class="eyebrow" data-i18n="loc.eyebrow">Ubicación</p>
+      <h2 data-i18n="loc.title">Cap Cana, Urbanización El Parque</h2>
+      <p class="body" data-i18n="loc.body">Comunidad cerrada con seguridad 24 horas, en el corazón del destino residencial más exclusivo del este de la República Dominicana.</p>
+      <ul class="pois">
+        <li><i>✈</i><span data-i18n="poi.1">Aeropuerto Internacional de Punta Cana</span></li>
+        <li><i>⚓</i><span data-i18n="poi.2">Marina Cap Cana</span></li>
+        <li><i>⛳</i><span data-i18n="poi.3">Punta Espada Golf Club · Jack Nicklaus</span></li>
+        <li><i>☀</i><span data-i18n="poi.4">Playa Juanillo</span></li>
+        <li><i>🔒</i><span data-i18n="poi.5">Comunidad cerrada · seguridad 24 h</span></li>
+      </ul>
+    </div>
+    <div class="map rv frame" data-img="aerial">
+      <div class="ph" style="background:radial-gradient(circle at 50% 50%,#ECE5D9 0,#E3D8C6 55%,#D3C3A8 100%)"><span class="tag">Cap Cana</span></div>
+      <div class="mapcap"><span class="eyebrow" style="color:var(--plaster)">Cap Cana</span><br><span class="serif" style="font-size:26px">Marina · Punta Espada · Juanillo</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- UTILITIES -->
+<section class="util">
+  <div class="wrap">
+    <div class="rv"><p class="eyebrow" data-i18n="u.eyebrow">Servicios e infraestructura</p><h2 data-i18n="u.title">Respaldada por la infraestructura propia de Cap Cana</h2></div>
+    <div class="cards rv">
+      <div class="card"><b data-i18n="u.1">Agua potable</b><p data-i18n="u.1s">Suministro de Acuatur desde pozos profundos a más de 13 km de la costa, con depósitos de ~18.000 m³ diarios.</p></div>
+      <div class="card"><b data-i18n="u.2">Energía eléctrica</b><p data-i18n="u.2s">Suministro de Cenetur con generación de alta eficiencia y apoyo solar. Red de distribución soterrada.</p></div>
+      <div class="card"><b data-i18n="u.3">Aguas residuales</b><p data-i18n="u.3s">Red de bombeo hacia planta depuradora aeróbica; el agua tratada se reutiliza para riego.</p></div>
+      <div class="card"><b data-i18n="u.4">Residuos</b><p data-i18n="u.4s">Separación, reciclaje y retirada autorizada, coordinados con los programas ambientales de Cap Cana.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRACKER -->
+<section class="tracker">
+  <div class="wrap grid">
+    <div class="rv">
+      <p class="eyebrow" data-i18n="t.eyebrow">Servicio al comprador · VillaTracker</p>
+      <h2 data-i18n="t.title">Tu inversión, en tu bolsillo</h2>
+      <p class="body" data-i18n="t.body">Cada comprador de Villa Oliva recibe acceso a VillaTracker, la app para seguir la construcción de su villa desde el móvil, esté donde esté: avance real, fotos de obra, cronograma y documentación. Actualización semanal.</p>
+      <ol class="steps">
+        <li><div><b data-i18n="t.1">Avance real de obra</b><span data-i18n="t.1s">Porcentaje por fases y próximo hito, de un vistazo.</span></div></li>
+        <li><div><b data-i18n="t.2">Informes con fotos</b><span data-i18n="t.2s">Informe semanal de la constructora con registro fotográfico.</span></div></li>
+        <li><div><b data-i18n="t.3">Cronograma y avisos</b><span data-i18n="t.3s">Fases con fechas y aviso automático si cambia algún plazo.</span></div></li>
+        <li><div><b data-i18n="t.4">Actas y documentos</b><span data-i18n="t.4s">Inspecciones, actas y acabados acordados, siempre accesibles.</span></div></li>
+      </ol>
+    </div>
+    <div class="rv">
+      <div class="phone"><div class="scr">
+        <div class="s">VillaTracker</div>
+        <div class="h">Villa Oliva</div>
+        <div class="s">El Parque 42 · Cap Cana</div>
+        <div class="bar"><i></i></div>
+        <div class="s"><span data-i18n="t.ph1">Fases completadas</span> · 2/7 · 34%</div>
+        <div class="card"><b data-i18n="t.ph2">En curso · Estructura</b><small data-i18n="t.ph3">Semana de obra n.º 8</small></div>
+        <div class="card"><b data-i18n="t.ph4">Próximo hito</b><small data-i18n="t.ph5">Vaciado de losa de cubierta · semana 10</small></div>
+        <div class="card"><b data-i18n="t.ph6">Acta de reunión · acabados</b><small data-i18n="t.ph7">Selección de travertino · acordado</small></div>
+      </div></div>
+      <p class="center" style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink2);margin-top:18px" data-i18n="t.ill">Pantallas ilustrativas</p>
+    </div>
+  </div>
+</section>
+
+<!-- STUDIO -->
+<section class="studio">
+  <div class="wrap rv">
+    <p class="eyebrow" data-i18n="st.eyebrow">Arquitectura</p>
+    <h2 data-i18n="st.title">Diseño, permisos y ejecución</h2>
+    <p data-i18n="st.body">GSB Guerrero-Strachan &amp; Braun es un estudio de arquitectura con proyectos en República Dominicana, España y Emiratos Árabes Unidos. Acompañamos cada proyecto de principio a fin: diseño, permisos y ejecución.</p>
+    <div class="links">
+      <a href="https://www.miguelbraun.com" target="_blank" rel="noopener">miguelbraun.com</a>
+      <a href="https://www.instagram.com/mbraunarquitectura" target="_blank" rel="noopener">@mbraunarquitectura</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap grid">
+    <div class="rv">
+      <p class="eyebrow" data-i18n="c.eyebrow">Contacto</p>
+      <h2 data-i18n="c.title">Más información y visitas</h2>
+      <p class="body" data-i18n="c.body">Escríbenos y te enviaremos el dossier completo de Villa Oliva, con plantas, acabados y condiciones.</p>
+      <div class="info">
+        <div><b>Miguel Braun</b> · <span data-i18n="c.role">Arquitecto</span></div>
+        <div>+34 626 777 752</div>
+        <div>+1 809 727 1223</div>
+        <div>estudio@miguelbraun.com</div>
+      </div>
+    </div>
+    <div class="rv">
+      <form id="form">
+        <div class="f2">
+          <div><label data-i18n="f.name">Nombre</label><input name="name" required></div>
+          <div><label data-i18n="f.email">Email</label><input name="email" type="email" required></div>
+        </div>
+        <div class="f2">
+          <div><label data-i18n="f.phone">Teléfono</label><input name="phone"></div>
+          <div><label data-i18n="f.country">País</label><input name="country"></div>
+        </div>
+        <div><label data-i18n="f.msg">Mensaje</label><textarea name="msg" data-i18n-ph="f.msgph" placeholder="Me gustaría recibir el dossier de Villa Oliva…"></textarea></div>
+        <button class="btn" type="submit" data-i18n="f.send">Solicitar dossier</button>
+      </form>
+      <div class="sent" id="sent"></div>
+    </div>
+  </div>
+</section>
+
+<div class="lb" id="lb"><button class="x">×</button><button class="p">‹</button><button class="n">›</button><img id="lbimg" alt=""><div class="c" id="lbc"></div></div>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Villa Oliva · El Parque 42 · Cap Cana</span>
+    <span>GSB Guerrero-Strachan &amp; Braun Arquitectos · <span data-i18n="ft.note">Imágenes no contractuales</span></span>
+  </div>
+</footer>
+
+<script>
+/* ---------- i18n ---------- */
+const LANGS={es:'Español',en:'English',fr:'Français',pt:'Português',de:'Deutsch',it:'Italiano',ru:'Русский'};
+const T={
+es:{}, /* Spanish is the markup default */
+en:{
+'nav.villa':'The villa','nav.spaces':'Spaces','nav.program':'Floor plans','nav.materials':'Materials','nav.location':'Location','nav.contact':'Contact',
+'hero.eyebrow':'Cap Cana · Dominican Republic','hero.sub':'Mediterranean classicism in the Caribbean','hero.plot':'Plot','hero.beds':'En-suite bedrooms','hero.pool':'Pool','hero.levels':'Floors','hero.scroll':'Discover',
+'intro.eyebrow':'The project','intro.title':'Stone, light and proportion','intro.lead':'Villa Oliva brings Mediterranean classicism to the Caribbean: two travertine-clad volumes joined by a double-height glazed pavilion framed by slender columns.','intro.body':'A private two-storey residence in the El Parque neighbourhood of Cap Cana that opens fully to the garden, the pool and the light. Six en-suite bedrooms, a cinema room, an island kitchen with back kitchen, a ground-floor guest suite and outdoor spaces designed as rooms in their own right.',
+'facts.eyebrow':'Key facts','facts.plot':'m² plot','facts.beds':'En-suite bedrooms','facts.baths':'Bathrooms + powder room','facts.living':'m² living-dining','facts.pool':'m² pool','facts.parking':'Covered parking',
+'gal.eyebrow':'Spaces','gal.title':'Living towards the pool','gal.body':'Living room, dining room and suites open to the terrace and the pool through large glass panes.',
+'cap.living':'Double-height living room','cap.kitchen':'Travertine island kitchen','cap.suite':'Master suite','cap.pool':'Pool and terrace','cap.bath':'Dining room by the garden','cap.firepit':'Fire-pit lounge',
+'ph.hero':'Render · front view','ph.rear':'Render · rear view','ph.living':'Render · living room','ph.kitchen':'Render · kitchen','ph.suite':'Render · suite','ph.pool':'Render · pool','ph.bath':'Render · dining','ph.firepit':'Render · fire pit','ph.planPB':'Level 1 plan','ph.planP1':'Level 2 plan',
+'band.quote':'Travertine, lime plaster and oak beneath a luminous double height.','band.sub':'Living area · double-height living room',
+'prog.eyebrow':'Programme','prog.title':'Two floors, one open house','prog.body':'Ground floor for social life and the outdoors; upper floor for rest, with every bedroom en suite and a double-height void over the living room.','prog.l1':'Level 1','prog.l2':'Level 2',
+'r.living':'Living-dining','r.cinema':'Cinema room','r.kitchen':'Kitchen','r.back':'Back kitchen','r.pantry':'Pantry','r.powder':'Powder room','r.staff':'Staff room','r.staffbath':'Staff bathroom','r.carport':'Carport · 2 cars','r.pool':'Pool','r.note1':'Includes an en-suite guest suite, covered outdoor dining and a fire-pit lounge.',
+'r.b5':'Bedroom 5','r.b5bath':'Bathroom 5','r.bcloset':'Bedroom with walk-in closet','r.b3':'Bedroom 3','r.b3bath':'Bathroom 3','r.b2':'Bedroom 2','r.b2bath':'Bathroom 2','r.note2':'A fifth en-suite bedroom completes the floor. All bedrooms en suite; double-height void over the living room.',
+'mat.eyebrow':'Interior design','mat.title':'Palette & materials','sw.trav':'Travertine','sw.lime':'Limestone','sw.plaster':'Lime plaster','sw.oak':'Natural oak','sw.bronze':'Aged bronze','sw.olive':'Olive green',
+'ml.1':'Travertine floors and cladding','ml.2':'Lime plaster walls','ml.3':'Natural linen and raw bouclé','ml.4':'Natural oak joinery','ml.5':'Brushed bronze fittings','ml.6':'Alabaster lighting',
+'k.eyebrow':'Kitchen','k.title':'The heart of the home','k.body':'A 40 m² open kitchen with a central travertine island, supported by a back kitchen and pantry. Natural oak, stone and warm integrated light, opening straight onto the garden.',
+'s.eyebrow':'Suites','s.title':'A private retreat','s.body':'En-suite bedrooms in travertine, freestanding bath, naturally lit shower and bespoke oak dressing room.',
+'o.eyebrow':'Outdoors','o.title':'The outdoors as a living space','o.1':'≈ 72 m² pool','o.1s':'With sun ledge','o.2':'Fire-pit lounge','o.2s':'Sunken, beside the garden','o.3':'Covered outdoor dining','o.3s':'In the shade of the columns','o.4':'Mediterranean-tropical garden','o.4s':'Olive trees, palms and herbs','o.5':'Cinema room','o.5s':'64 m² on the ground floor','o.6':'Guest suite','o.6s':'Independent, on the ground floor',
+'loc.eyebrow':'Location','loc.title':'Cap Cana, El Parque neighbourhood','loc.body':'A gated community with 24-hour security, at the heart of the most exclusive residential destination in the east of the Dominican Republic.',
+'poi.1':'Punta Cana International Airport','poi.2':'Cap Cana Marina','poi.3':'Punta Espada Golf Club · Jack Nicklaus','poi.4':'Juanillo Beach','poi.5':'Gated community · 24 h security',
+'u.eyebrow':'Utilities & infrastructure','u.title':'Backed by Cap Cana\'s own utilities','u.1':'Drinking water','u.1s':'Supplied by Acuatur from deep wells over 13 km inland, with ~18,000 m³/day storage.','u.2':'Power','u.2s':'Supplied by Cenetur with high-efficiency generation and solar support. Underground grid.','u.3':'Wastewater','u.3s':'Pumping network to an aerobic treatment plant; treated water is reused for irrigation.','u.4':'Waste','u.4s':'Sorting, recycling and authorised removal, in line with Cap Cana environmental programmes.',
+'t.eyebrow':'Buyer service · VillaTracker','t.title':'Your investment, in your pocket','t.body':'Every Villa Oliva buyer gets access to VillaTracker, the app to follow the construction of their villa from their phone, wherever they are: real progress, site photos, schedule and documents. Weekly updates.',
+'t.1':'Real progress','t.1s':'Progress by phase and next milestone at a glance.','t.2':'Photo reports','t.2s':'Weekly site report with photo log.','t.3':'Schedule & alerts','t.3s':'Phases with dates and automatic delay alerts.','t.4':'Records & documents','t.4s':'Inspections, minutes and agreed finishes, always at hand.',
+'t.ph1':'Phases completed','t.ph2':'In progress · Structure','t.ph3':'Site week no. 8','t.ph4':'Next milestone','t.ph5':'Roof slab pour · week 10','t.ph6':'Meeting minutes · finishes','t.ph7':'Travertine selection · agreed','t.ill':'Illustrative screens',
+'st.eyebrow':'Architecture','st.title':'Design, permitting & execution','st.body':'GSB Guerrero-Strachan & Braun is an architecture studio with projects in the Dominican Republic, Spain and the UAE, guiding each project from start to finish: design, permitting and execution.',
+'c.eyebrow':'Contact','c.title':'Information & viewings','c.body':'Write to us and we will send you the full Villa Oliva dossier, with floor plans, finishes and terms.','c.role':'Architect',
+'f.name':'Name','f.email':'Email','f.phone':'Phone','f.country':'Country','f.msg':'Message','f.msgph':'I would like to receive the Villa Oliva dossier…','f.send':'Request dossier',
+'sent':'Thank you. We will reply shortly at the address you provided. You can also write directly to estudio@miguelbraun.com.',
+'ft.note':'Images are not contractual'
+},
+fr:{
+'nav.villa':'La villa','nav.spaces':'Espaces','nav.program':'Plans','nav.materials':'Matériaux','nav.location':'Situation','nav.contact':'Contact',
+'hero.eyebrow':'Cap Cana · République dominicaine','hero.sub':'Classicisme méditerranéen dans les Caraïbes','hero.plot':'Terrain','hero.beds':'Chambres avec salle de bains','hero.pool':'Piscine','hero.levels':'Niveaux','hero.scroll':'Découvrir',
+'intro.eyebrow':'Le projet','intro.title':'Pierre, lumière et proportion','intro.lead':'Villa Oliva apporte le classicisme méditerranéen aux Caraïbes : deux volumes habillés de travertin reliés par un grand pavillon central vitré à double hauteur, encadré de colonnes élancées.','intro.body':'Une résidence privée sur deux niveaux dans le quartier El Parque de Cap Cana, entièrement ouverte sur le jardin, la piscine et la lumière. Six chambres avec salle de bains, salle de cinéma, cuisine avec îlot et arrière-cuisine, suite d\'invités au rez-de-chaussée et des extérieurs conçus comme de véritables pièces à vivre.',
+'facts.eyebrow':'Fiche technique','facts.plot':'m² de terrain','facts.beds':'Chambres en suite','facts.baths':'Salles de bains + WC','facts.living':'m² séjour-salle à manger','facts.pool':'m² de piscine','facts.parking':'Places couvertes',
+'gal.eyebrow':'Espaces','gal.title':'Vivre tourné vers la piscine','gal.body':'Séjour, salle à manger et suites s\'ouvrent sur la terrasse et la piscine par de grandes baies vitrées.',
+'cap.living':'Séjour à double hauteur','cap.kitchen':'Cuisine avec îlot en travertin','cap.suite':'Suite principale','cap.pool':'Piscine et terrasse','cap.bath':'Salle à manger sur le jardin','cap.firepit':'Salon extérieur avec foyer',
+'ph.hero':'Rendu · vue avant','ph.rear':'Rendu · vue arrière','ph.living':'Rendu · séjour','ph.kitchen':'Rendu · cuisine','ph.suite':'Rendu · suite','ph.pool':'Rendu · piscine','ph.bath':'Rendu · salle à manger','ph.firepit':'Rendu · foyer','ph.planPB':'Plan niveau 1','ph.planP1':'Plan niveau 2',
+'band.quote':'Travertin, enduit à la chaux et chêne sous une double hauteur lumineuse.','band.sub':'Espace de vie · séjour à double hauteur',
+'prog.eyebrow':'Programme','prog.title':'Deux niveaux, une maison ouverte','prog.body':'Rez-de-chaussée pour la vie sociale et l\'extérieur ; étage pour le repos, avec toutes les chambres en suite et une double hauteur sur le séjour.','prog.l1':'Niveau 1','prog.l2':'Niveau 2',
+'r.living':'Séjour-salle à manger','r.cinema':'Salle de cinéma','r.kitchen':'Cuisine','r.back':'Arrière-cuisine','r.pantry':'Cellier','r.powder':'WC invités','r.staff':'Chambre de service','r.staffbath':'Salle de bains de service','r.carport':'Carport · 2 voitures','r.pool':'Piscine','r.note1':'Comprend une suite d\'invités avec salle de bains, une salle à manger extérieure couverte et un salon extérieur avec foyer.',
+'r.b5':'Chambre 5','r.b5bath':'Salle de bains 5','r.bcloset':'Chambre avec dressing','r.b3':'Chambre 3','r.b3bath':'Salle de bains 3','r.b2':'Chambre 2','r.b2bath':'Salle de bains 2','r.note2':'Une cinquième chambre en suite complète l\'étage. Toutes les chambres avec salle de bains privative ; double hauteur sur le séjour.',
+'mat.eyebrow':'Décoration intérieure','mat.title':'Palette et matériaux','sw.trav':'Travertin','sw.lime':'Pierre calcaire','sw.plaster':'Enduit à la chaux','sw.oak':'Chêne naturel','sw.bronze':'Bronze vieilli','sw.olive':'Vert olive',
+'ml.1':'Travertin au sol et en parement','ml.2':'Enduit à la chaux sur les murs','ml.3':'Lin naturel et bouclé écru','ml.4':'Menuiseries en chêne naturel','ml.5':'Robinetterie en bronze brossé','ml.6':'Luminaires en albâtre',
+'k.eyebrow':'Cuisine','k.title':'Le cœur de la maison','k.body':'Cuisine ouverte de 40 m² avec îlot central en travertin, épaulée par une arrière-cuisine et un cellier. Chêne naturel, pierre et lumière chaude intégrée, avec accès direct au jardin.',
+'s.eyebrow':'Suites','s.title':'Un refuge privé','s.body':'Chambres avec salle de bains privative en travertin, baignoire îlot, douche à la lumière naturelle et dressing sur mesure en chêne.',
+'o.eyebrow':'Extérieur','o.title':'L\'extérieur comme pièce à vivre','o.1':'Piscine de ≈ 72 m²','o.1s':'Avec plage immergée','o.2':'Salon extérieur avec foyer','o.2s':'En contrebas, près du jardin','o.3':'Salle à manger extérieure couverte','o.3s':'À l\'ombre des colonnes','o.4':'Jardin méditerranéen-tropical','o.4s':'Oliviers, palmiers et aromatiques','o.5':'Salle de cinéma','o.5s':'64 m² au rez-de-chaussée','o.6':'Suite d\'invités','o.6s':'Indépendante, au rez-de-chaussée',
+'loc.eyebrow':'Situation','loc.title':'Cap Cana, quartier El Parque','loc.body':'Résidence fermée avec sécurité 24 h/24, au cœur de la destination résidentielle la plus exclusive de l\'est de la République dominicaine.',
+'poi.1':'Aéroport international de Punta Cana','poi.2':'Marina Cap Cana','poi.3':'Punta Espada Golf Club · Jack Nicklaus','poi.4':'Plage Juanillo','poi.5':'Résidence fermée · sécurité 24 h',
+'u.eyebrow':'Services et infrastructures','u.title':'Soutenue par les infrastructures propres de Cap Cana','u.1':'Eau potable','u.1s':'Fournie par Acuatur depuis des puits profonds à plus de 13 km de la côte, avec ~18 000 m³ de stockage par jour.','u.2':'Électricité','u.2s':'Fournie par Cenetur avec production à haut rendement et appoint solaire. Réseau enterré.','u.3':'Eaux usées','u.3s':'Réseau de pompage vers une station d\'épuration aérobie ; l\'eau traitée est réutilisée pour l\'arrosage.','u.4':'Déchets','u.4s':'Tri, recyclage et collecte agréée, en accord avec les programmes environnementaux de Cap Cana.',
+'t.eyebrow':'Service acheteur · VillaTracker','t.title':'Votre investissement, dans votre poche','t.body':'Chaque acheteur de Villa Oliva accède à VillaTracker, l\'application pour suivre la construction de sa villa depuis son téléphone, où qu\'il soit : avancement réel, photos de chantier, calendrier et documents. Mise à jour hebdomadaire.',
+'t.1':'Avancement réel','t.1s':'Pourcentage par phase et prochain jalon, en un coup d\'œil.','t.2':'Rapports photo','t.2s':'Rapport hebdomadaire du constructeur avec reportage photo.','t.3':'Calendrier et alertes','t.3s':'Phases datées et alerte automatique en cas de changement de délai.','t.4':'Procès-verbaux et documents','t.4s':'Inspections, comptes rendus et finitions validées, toujours à portée de main.',
+'t.ph1':'Phases terminées','t.ph2':'En cours · Structure','t.ph3':'Semaine de chantier n° 8','t.ph4':'Prochain jalon','t.ph5':'Coulage de la dalle de toiture · semaine 10','t.ph6':'Compte rendu · finitions','t.ph7':'Choix du travertin · validé','t.ill':'Écrans illustratifs',
+'st.eyebrow':'Architecture','st.title':'Conception, permis et exécution','st.body':'GSB Guerrero-Strachan & Braun est un cabinet d\'architecture avec des projets en République dominicaine, en Espagne et aux Émirats arabes unis. Nous accompagnons chaque projet du début à la fin : conception, permis et exécution.',
+'c.eyebrow':'Contact','c.title':'Informations et visites','c.body':'Écrivez-nous et nous vous enverrons le dossier complet de Villa Oliva, avec plans, finitions et conditions.','c.role':'Architecte',
+'f.name':'Nom','f.email':'E-mail','f.phone':'Téléphone','f.country':'Pays','f.msg':'Message','f.msgph':'Je souhaite recevoir le dossier de Villa Oliva…','f.send':'Demander le dossier',
+'sent':'Merci. Nous vous répondrons rapidement à l\'adresse indiquée. Vous pouvez aussi écrire directement à estudio@miguelbraun.com.',
+'ft.note':'Images non contractuelles'
+},
+pt:{
+'nav.villa':'A villa','nav.spaces':'Espaços','nav.program':'Plantas','nav.materials':'Materiais','nav.location':'Localização','nav.contact':'Contacto',
+'hero.eyebrow':'Cap Cana · República Dominicana','hero.sub':'Classicismo mediterrânico nas Caraíbas','hero.plot':'Terreno','hero.beds':'Quartos com casa de banho','hero.pool':'Piscina','hero.levels':'Pisos','hero.scroll':'Descobrir',
+'intro.eyebrow':'O projeto','intro.title':'Pedra, luz e proporção','intro.lead':'A Villa Oliva traz o classicismo mediterrânico às Caraíbas: dois volumes revestidos a travertino, unidos por um grande pavilhão central envidraçado de pé-direito duplo, enquadrado por colunas esbeltas.','intro.body':'Uma residência privada de dois pisos na Urbanização El Parque, em Cap Cana, totalmente aberta ao jardim, à piscina e à luz. Seis quartos com casa de banho, sala de cinema, cozinha com ilha e cozinha de apoio, suíte de hóspedes no rés-do-chão e exteriores pensados como mais uma divisão da casa.',
+'facts.eyebrow':'Ficha técnica','facts.plot':'m² de terreno','facts.beds':'Suítes','facts.baths':'Casas de banho + lavabo','facts.living':'m² sala de estar e jantar','facts.pool':'m² de piscina','facts.parking':'Lugares cobertos',
+'gal.eyebrow':'Espaços','gal.title':'Viver voltado para a piscina','gal.body':'Sala, zona de refeições e suítes abrem-se para o terraço e a piscina através de grandes panos de vidro.',
+'cap.living':'Sala de pé-direito duplo','cap.kitchen':'Cozinha com ilha em travertino','cap.suite':'Suíte principal','cap.pool':'Piscina e terraço','cap.bath':'Sala de jantar junto ao jardim','cap.firepit':'Sala exterior com fire pit',
+'ph.hero':'Render · vista frontal','ph.rear':'Render · vista traseira','ph.living':'Render · sala','ph.kitchen':'Render · cozinha','ph.suite':'Render · suíte','ph.pool':'Render · piscina','ph.bath':'Render · sala de jantar','ph.firepit':'Render · fire pit','ph.planPB':'Planta piso 1','ph.planP1':'Planta piso 2',
+'band.quote':'Travertino, estuque de cal e carvalho sob um pé-direito duplo luminoso.','band.sub':'Zona social · sala de pé-direito duplo',
+'prog.eyebrow':'Programa','prog.title':'Dois pisos, uma casa aberta','prog.body':'Rés-do-chão para a vida social e o exterior; piso superior para o descanso, com todos os quartos em suíte e pé-direito duplo sobre a sala.','prog.l1':'Piso 1','prog.l2':'Piso 2',
+'r.living':'Sala de estar e jantar','r.cinema':'Sala de cinema','r.kitchen':'Cozinha','r.back':'Cozinha de apoio','r.pantry':'Despensa','r.powder':'Lavabo','r.staff':'Quarto de serviço','r.staffbath':'Casa de banho de serviço','r.carport':'Telheiro · 2 carros','r.pool':'Piscina','r.note1':'Inclui suíte de hóspedes, zona de refeições exterior coberta e sala exterior com fire pit.',
+'r.b5':'Quarto 5','r.b5bath':'Casa de banho 5','r.bcloset':'Quarto com closet','r.b3':'Quarto 3','r.b3bath':'Casa de banho 3','r.b2':'Quarto 2','r.b2bath':'Casa de banho 2','r.note2':'Um quinto quarto em suíte completa o piso. Todos os quartos com casa de banho privativa; pé-direito duplo sobre a sala.',
+'mat.eyebrow':'Design de interiores','mat.title':'Paleta e materiais','sw.trav':'Travertino','sw.lime':'Pedra calcária','sw.plaster':'Estuque de cal','sw.oak':'Carvalho natural','sw.bronze':'Bronze envelhecido','sw.olive':'Verde-oliva',
+'ml.1':'Travertino em pavimentos e revestimentos','ml.2':'Estuque de cal nas paredes','ml.3':'Linho natural e bouclé cru','ml.4':'Carpintarias em carvalho natural','ml.5':'Torneiras em bronze escovado','ml.6':'Iluminação em alabastro',
+'k.eyebrow':'Cozinha','k.title':'O coração da casa','k.body':'Cozinha aberta de 40 m² com ilha central em travertino, apoiada por cozinha de apoio e despensa. Carvalho natural, pedra e luz quente integrada, com saída direta para o jardim.',
+'s.eyebrow':'Suítes','s.title':'Um refúgio privado','s.body':'Quartos com casa de banho privativa em travertino, banheira isolada, duche com luz natural e closet à medida em carvalho.',
+'o.eyebrow':'Exterior','o.title':'O exterior como mais uma divisão','o.1':'Piscina de ≈ 72 m²','o.1s':'Com zona de praia','o.2':'Sala exterior com fire pit','o.2s':'Rebaixada, junto ao jardim','o.3':'Zona de refeições exterior coberta','o.3s':'À sombra das colunas','o.4':'Jardim mediterrânico-tropical','o.4s':'Oliveiras, palmeiras e aromáticas','o.5':'Sala de cinema','o.5s':'64 m² no rés-do-chão','o.6':'Suíte de hóspedes','o.6s':'Independente, no rés-do-chão',
+'loc.eyebrow':'Localização','loc.title':'Cap Cana, Urbanização El Parque','loc.body':'Condomínio fechado com segurança 24 horas, no coração do destino residencial mais exclusivo do leste da República Dominicana.',
+'poi.1':'Aeroporto Internacional de Punta Cana','poi.2':'Marina Cap Cana','poi.3':'Punta Espada Golf Club · Jack Nicklaus','poi.4':'Praia Juanillo','poi.5':'Condomínio fechado · segurança 24 h',
+'u.eyebrow':'Serviços e infraestruturas','u.title':'Apoiada pelas infraestruturas próprias de Cap Cana','u.1':'Água potável','u.1s':'Fornecida pela Acuatur a partir de poços profundos a mais de 13 km da costa, com ~18.000 m³ de reserva diária.','u.2':'Energia elétrica','u.2s':'Fornecida pela Cenetur com geração de alta eficiência e apoio solar. Rede de distribuição enterrada.','u.3':'Águas residuais','u.3s':'Rede de bombagem para estação de tratamento aeróbia; a água tratada é reutilizada na rega.','u.4':'Resíduos','u.4s':'Separação, reciclagem e recolha autorizada, em linha com os programas ambientais de Cap Cana.',
+'t.eyebrow':'Serviço ao comprador · VillaTracker','t.title':'O seu investimento, no seu bolso','t.body':'Cada comprador da Villa Oliva recebe acesso ao VillaTracker, a app para acompanhar a construção da sua villa a partir do telemóvel, onde quer que esteja: progresso real, fotos de obra, cronograma e documentação. Atualização semanal.',
+'t.1':'Progresso real da obra','t.1s':'Percentagem por fases e próximo marco, num relance.','t.2':'Relatórios com fotos','t.2s':'Relatório semanal da construtora com registo fotográfico.','t.3':'Cronograma e avisos','t.3s':'Fases com datas e aviso automático se algum prazo mudar.','t.4':'Atas e documentos','t.4s':'Inspeções, atas e acabamentos acordados, sempre acessíveis.',
+'t.ph1':'Fases concluídas','t.ph2':'Em curso · Estrutura','t.ph3':'Semana de obra n.º 8','t.ph4':'Próximo marco','t.ph5':'Betonagem da laje de cobertura · semana 10','t.ph6':'Ata de reunião · acabamentos','t.ph7':'Seleção do travertino · acordado','t.ill':'Ecrãs ilustrativos',
+'st.eyebrow':'Arquitetura','st.title':'Projeto, licenciamento e execução','st.body':'A GSB Guerrero-Strachan & Braun é um atelier de arquitetura com projetos na República Dominicana, Espanha e Emirados Árabes Unidos. Acompanhamos cada projeto do princípio ao fim: projeto, licenciamento e execução.',
+'c.eyebrow':'Contacto','c.title':'Mais informação e visitas','c.body':'Escreva-nos e enviaremos o dossiê completo da Villa Oliva, com plantas, acabamentos e condições.','c.role':'Arquiteto',
+'f.name':'Nome','f.email':'E-mail','f.phone':'Telefone','f.country':'País','f.msg':'Mensagem','f.msgph':'Gostaria de receber o dossiê da Villa Oliva…','f.send':'Pedir dossiê',
+'sent':'Obrigado. Responderemos em breve para o endereço indicado. Pode também escrever diretamente para estudio@miguelbraun.com.',
+'ft.note':'Imagens não contratuais'
+},
+de:{
+'nav.villa':'Die Villa','nav.spaces':'Räume','nav.program':'Grundrisse','nav.materials':'Materialien','nav.location':'Lage','nav.contact':'Kontakt',
+'hero.eyebrow':'Cap Cana · Dominikanische Republik','hero.sub':'Mediterraner Klassizismus in der Karibik','hero.plot':'Grundstück','hero.beds':'Schlafzimmer mit Bad','hero.pool':'Pool','hero.levels':'Ebenen','hero.scroll':'Entdecken',
+'intro.eyebrow':'Das Projekt','intro.title':'Stein, Licht und Proportion','intro.lead':'Villa Oliva bringt den mediterranen Klassizismus in die Karibik: zwei mit Travertin verkleidete Baukörper, verbunden durch einen großen, verglasten Mittelpavillon mit doppelter Raumhöhe, gerahmt von schlanken Säulen.','intro.body':'Eine private Residenz auf zwei Ebenen im Viertel El Parque von Cap Cana, die sich vollständig zum Garten, zum Pool und zum Licht öffnet. Sechs Schlafzimmer mit eigenem Bad, Kinoraum, Küche mit Insel und Nebenküche, Gästesuite im Erdgeschoss und Außenbereiche, die als eigene Wohnräume gedacht sind.',
+'facts.eyebrow':'Eckdaten','facts.plot':'m² Grundstück','facts.beds':'Schlafzimmer en suite','facts.baths':'Bäder + Gäste-WC','facts.living':'m² Wohn-Essbereich','facts.pool':'m² Pool','facts.parking':'Überdachte Stellplätze',
+'gal.eyebrow':'Räume','gal.title':'Leben zum Pool hin','gal.body':'Wohnzimmer, Essbereich und Suiten öffnen sich über große Glasflächen zur Terrasse und zum Pool.',
+'cap.living':'Wohnraum mit doppelter Höhe','cap.kitchen':'Küche mit Travertin-Insel','cap.suite':'Hauptsuite','cap.pool':'Pool und Terrasse','cap.bath':'Essbereich am Garten','cap.firepit':'Außenlounge mit Feuerstelle',
+'ph.hero':'Rendering · Vorderansicht','ph.rear':'Rendering · Rückansicht','ph.living':'Rendering · Wohnraum','ph.kitchen':'Rendering · Küche','ph.suite':'Rendering · Suite','ph.pool':'Rendering · Pool','ph.bath':'Rendering · Essbereich','ph.firepit':'Rendering · Feuerstelle','ph.planPB':'Grundriss Ebene 1','ph.planP1':'Grundriss Ebene 2',
+'band.quote':'Travertin, Kalkputz und Eiche unter einer lichtdurchfluteten doppelten Raumhöhe.','band.sub':'Wohnbereich · Wohnraum mit doppelter Höhe',
+'prog.eyebrow':'Raumprogramm','prog.title':'Zwei Ebenen, ein offenes Haus','prog.body':'Erdgeschoss für Geselligkeit und Außenleben; Obergeschoss zum Ruhen, alle Schlafzimmer en suite und ein Luftraum über dem Wohnzimmer.','prog.l1':'Ebene 1','prog.l2':'Ebene 2',
+'r.living':'Wohn-Essbereich','r.cinema':'Kinoraum','r.kitchen':'Küche','r.back':'Nebenküche','r.pantry':'Speisekammer','r.powder':'Gäste-WC','r.staff':'Personalzimmer','r.staffbath':'Personalbad','r.carport':'Carport · 2 Autos','r.pool':'Pool','r.note1':'Inklusive Gästesuite mit Bad, überdachtem Außenessbereich und Außenlounge mit Feuerstelle.',
+'r.b5':'Schlafzimmer 5','r.b5bath':'Bad 5','r.bcloset':'Zimmer mit Ankleide','r.b3':'Schlafzimmer 3','r.b3bath':'Bad 3','r.b2':'Schlafzimmer 2','r.b2bath':'Bad 2','r.note2':'Ein fünftes Schlafzimmer mit Bad vervollständigt die Ebene. Alle Schlafzimmer mit eigenem Bad; Luftraum über dem Wohnzimmer.',
+'mat.eyebrow':'Innenarchitektur','mat.title':'Palette und Materialien','sw.trav':'Travertin','sw.lime':'Kalkstein','sw.plaster':'Kalkputz','sw.oak':'Naturholz Eiche','sw.bronze':'Altbronze','sw.olive':'Olivgrün',
+'ml.1':'Travertin für Böden und Verkleidungen','ml.2':'Kalkputz an den Wänden','ml.3':'Naturleinen und roher Bouclé','ml.4':'Schreinerarbeiten in Eiche natur','ml.5':'Armaturen in gebürsteter Bronze','ml.6':'Leuchten aus Alabaster',
+'k.eyebrow':'Küche','k.title':'Das Herz des Hauses','k.body':'Offene 40-m²-Küche mit zentraler Travertin-Insel, ergänzt durch Nebenküche und Speisekammer. Eiche natur, Stein und warmes, integriertes Licht, mit direktem Zugang zum Garten.',
+'s.eyebrow':'Suiten','s.title':'Ein privater Rückzugsort','s.body':'Schlafzimmer mit eigenem Essbereich am Garten, freistehender Wanne, Dusche mit Tageslicht und maßgefertigter Ankleide aus Eiche.',
+'o.eyebrow':'Außenbereich','o.title':'Der Außenraum als Wohnraum','o.1':'Pool mit ≈ 72 m²','o.1s':'Mit Liegestufe im Wasser','o.2':'Außenlounge mit Feuerstelle','o.2s':'Abgesenkt, am Garten','o.3':'Überdachter Außenessbereich','o.3s':'Im Schatten der Säulen','o.4':'Mediterran-tropischer Garten','o.4s':'Olivenbäume, Palmen und Kräuter','o.5':'Kinoraum','o.5s':'64 m² im Erdgeschoss','o.6':'Gästesuite','o.6s':'Separat, im Erdgeschoss',
+'loc.eyebrow':'Lage','loc.title':'Cap Cana, Viertel El Parque','loc.body':'Bewachte Wohnanlage mit 24-Stunden-Sicherheitsdienst im Herzen der exklusivsten Wohnlage im Osten der Dominikanischen Republik.',
+'poi.1':'Internationaler Flughafen Punta Cana','poi.2':'Marina Cap Cana','poi.3':'Punta Espada Golf Club · Jack Nicklaus','poi.4':'Strand Juanillo','poi.5':'Bewachte Anlage · 24-h-Sicherheit',
+'u.eyebrow':'Versorgung und Infrastruktur','u.title':'Getragen von der eigenen Infrastruktur Cap Canas','u.1':'Trinkwasser','u.1s':'Versorgung durch Acuatur aus Tiefbrunnen über 13 km landeinwärts, mit ~18.000 m³ Speicher pro Tag.','u.2':'Strom','u.2s':'Versorgung durch Cenetur mit hocheffizienter Erzeugung und Solarunterstützung. Unterirdisches Verteilnetz.','u.3':'Abwasser','u.3s':'Pumpnetz zu einer aeroben Kläranlage; das gereinigte Wasser wird zur Bewässerung wiederverwendet.','u.4':'Abfall','u.4s':'Trennung, Recycling und zugelassene Entsorgung gemäß den Umweltprogrammen von Cap Cana.',
+'t.eyebrow':'Käuferservice · VillaTracker','t.title':'Ihre Investition, in Ihrer Tasche','t.body':'Jeder Käufer der Villa Oliva erhält Zugang zu VillaTracker, der App, mit der Sie den Bau Ihrer Villa vom Handy aus verfolgen, wo immer Sie sind: realer Fortschritt, Baustellenfotos, Zeitplan und Unterlagen. Wöchentliche Updates.',
+'t.1':'Realer Baufortschritt','t.1s':'Fortschritt nach Phasen und nächster Meilenstein auf einen Blick.','t.2':'Fotoberichte','t.2s':'Wöchentlicher Baubericht des Bauunternehmens mit Fotodokumentation.','t.3':'Zeitplan und Hinweise','t.3s':'Phasen mit Terminen und automatische Benachrichtigung bei Terminänderungen.','t.4':'Protokolle und Dokumente','t.4s':'Abnahmen, Protokolle und vereinbarte Ausstattungen, jederzeit griffbereit.',
+'t.ph1':'Abgeschlossene Phasen','t.ph2':'Laufend · Rohbau','t.ph3':'Bauwoche Nr. 8','t.ph4':'Nächster Meilenstein','t.ph5':'Betonieren der Dachdecke · Woche 10','t.ph6':'Besprechungsprotokoll · Ausstattung','t.ph7':'Travertinauswahl · vereinbart','t.ill':'Beispielhafte Bildschirme',
+'st.eyebrow':'Architektur','st.title':'Entwurf, Genehmigung und Ausführung','st.body':'GSB Guerrero-Strachan & Braun ist ein Architekturbüro mit Projekten in der Dominikanischen Republik, Spanien und den Vereinigten Arabischen Emiraten. Wir begleiten jedes Projekt von Anfang bis Ende: Entwurf, Genehmigung und Ausführung.',
+'c.eyebrow':'Kontakt','c.title':'Informationen und Besichtigungen','c.body':'Schreiben Sie uns, und wir senden Ihnen das vollständige Dossier zur Villa Oliva mit Grundrissen, Ausstattung und Konditionen.','c.role':'Architekt',
+'f.name':'Name','f.email':'E-Mail','f.phone':'Telefon','f.country':'Land','f.msg':'Nachricht','f.msgph':'Ich möchte das Dossier zur Villa Oliva erhalten…','f.send':'Dossier anfordern',
+'sent':'Vielen Dank. Wir melden uns in Kürze unter der angegebenen Adresse. Sie können auch direkt an estudio@miguelbraun.com schreiben.',
+'ft.note':'Abbildungen unverbindlich'
+},
+it:{
+'nav.villa':'La villa','nav.spaces':'Spazi','nav.program':'Piante','nav.materials':'Materiali','nav.location':'Posizione','nav.contact':'Contatti',
+'hero.eyebrow':'Cap Cana · Repubblica Dominicana','hero.sub':'Classicismo mediterraneo nei Caraibi','hero.plot':'Lotto','hero.beds':'Camere con bagno','hero.pool':'Piscina','hero.levels':'Livelli','hero.scroll':'Scopri',
+'intro.eyebrow':'Il progetto','intro.title':'Pietra, luce e proporzione','intro.lead':'Villa Oliva porta il classicismo mediterraneo nei Caraibi: due volumi rivestiti in travertino uniti da un grande padiglione centrale vetrato a doppia altezza, incorniciato da colonne slanciate.','intro.body':'Una residenza privata su due livelli nel quartiere El Parque di Cap Cana, che si apre completamente al giardino, alla piscina e alla luce. Sei camere con bagno, sala cinema, cucina con isola e cucina di servizio, suite per gli ospiti al piano terra ed esterni pensati come vere e proprie stanze.',
+'facts.eyebrow':'Scheda tecnica','facts.plot':'m² di lotto','facts.beds':'Camere en suite','facts.baths':'Bagni + bagno di cortesia','facts.living':'m² soggiorno-pranzo','facts.pool':'m² di piscina','facts.parking':'Posti auto coperti',
+'gal.eyebrow':'Spazi','gal.title':'Vivere verso la piscina','gal.body':'Soggiorno, sala da pranzo e suite si aprono sulla terrazza e sulla piscina attraverso grandi vetrate.',
+'cap.living':'Soggiorno a doppia altezza','cap.kitchen':'Cucina con isola in travertino','cap.suite':'Suite padronale','cap.pool':'Piscina e terrazza','cap.bath':'Sala da pranzo sul giardino','cap.firepit':'Salotto esterno con braciere',
+'ph.hero':'Render · vista frontale','ph.rear':'Render · vista posteriore','ph.living':'Render · soggiorno','ph.kitchen':'Render · cucina','ph.suite':'Render · suite','ph.pool':'Render · piscina','ph.bath':'Render · sala da pranzo','ph.firepit':'Render · braciere','ph.planPB':'Pianta livello 1','ph.planP1':'Pianta livello 2',
+'band.quote':'Travertino, intonaco di calce e rovere sotto una luminosa doppia altezza.','band.sub':'Zona giorno · soggiorno a doppia altezza',
+'prog.eyebrow':'Programma','prog.title':'Due livelli, una casa aperta','prog.body':'Piano terra per la vita sociale e l\'esterno; piano superiore per il riposo, con tutte le camere en suite e doppia altezza sul soggiorno.','prog.l1':'Livello 1','prog.l2':'Livello 2',
+'r.living':'Soggiorno-pranzo','r.cinema':'Sala cinema','r.kitchen':'Cucina','r.back':'Cucina di servizio','r.pantry':'Dispensa','r.powder':'Bagno di cortesia','r.staff':'Camera di servizio','r.staffbath':'Bagno di servizio','r.carport':'Tettoia · 2 auto','r.pool':'Piscina','r.note1':'Include suite per gli ospiti con bagno, sala da pranzo esterna coperta e salotto esterno con braciere.',
+'r.b5':'Camera 5','r.b5bath':'Bagno camera 5','r.bcloset':'Camera con cabina armadio','r.b3':'Camera 3','r.b3bath':'Bagno 3','r.b2':'Camera 2','r.b2bath':'Bagno 2','r.note2':'Una quinta camera con bagno completa il piano. Tutte le camere con bagno privato; doppia altezza sul soggiorno.',
+'mat.eyebrow':'Interior design','mat.title':'Palette e materiali','sw.trav':'Travertino','sw.lime':'Pietra calcarea','sw.plaster':'Intonaco di calce','sw.oak':'Rovere naturale','sw.bronze':'Bronzo anticato','sw.olive':'Verde oliva',
+'ml.1':'Travertino per pavimenti e rivestimenti','ml.2':'Intonaco di calce alle pareti','ml.3':'Lino naturale e bouclé grezzo','ml.4':'Falegnameria in rovere naturale','ml.5':'Rubinetteria in bronzo spazzolato','ml.6':'Illuminazione in alabastro',
+'k.eyebrow':'Cucina','k.title':'Il cuore della casa','k.body':'Cucina aperta di 40 m² con isola centrale in travertino, affiancata da cucina di servizio e dispensa. Rovere naturale, pietra e luce calda integrata, con uscita diretta sul giardino.',
+'s.eyebrow':'Suite','s.title':'Un rifugio privato','s.body':'Camere con bagno privato in travertino, vasca freestanding, doccia con luce naturale e cabina armadio su misura in rovere.',
+'o.eyebrow':'Esterni','o.title':'L\'esterno come stanza','o.1':'Piscina di ≈ 72 m²','o.1s':'Con zona relax immersa','o.2':'Salotto esterno con braciere','o.2s':'Ribassato, accanto al giardino','o.3':'Sala da pranzo esterna coperta','o.3s':'All\'ombra delle colonne','o.4':'Giardino mediterraneo-tropicale','o.4s':'Ulivi, palme e aromatiche','o.5':'Sala cinema','o.5s':'64 m² al piano terra','o.6':'Suite per gli ospiti','o.6s':'Indipendente, al piano terra',
+'loc.eyebrow':'Posizione','loc.title':'Cap Cana, quartiere El Parque','loc.body':'Comunità recintata con sicurezza 24 ore su 24, nel cuore della destinazione residenziale più esclusiva dell\'est della Repubblica Dominicana.',
+'poi.1':'Aeroporto Internazionale di Punta Cana','poi.2':'Marina Cap Cana','poi.3':'Punta Espada Golf Club · Jack Nicklaus','poi.4':'Spiaggia Juanillo','poi.5':'Comunità recintata · sicurezza 24 h',
+'u.eyebrow':'Servizi e infrastrutture','u.title':'Sostenuta dalle infrastrutture proprie di Cap Cana','u.1':'Acqua potabile','u.1s':'Fornita da Acuatur da pozzi profondi a oltre 13 km dalla costa, con ~18.000 m³ di riserva giornaliera.','u.2':'Energia elettrica','u.2s':'Fornita da Cenetur con generazione ad alta efficienza e supporto solare. Rete di distribuzione interrata.','u.3':'Acque reflue','u.3s':'Rete di pompaggio verso un depuratore aerobico; l\'acqua trattata è riutilizzata per l\'irrigazione.','u.4':'Rifiuti','u.4s':'Raccolta differenziata, riciclo e ritiro autorizzato, in linea con i programmi ambientali di Cap Cana.',
+'t.eyebrow':'Servizio all\'acquirente · VillaTracker','t.title':'Il tuo investimento, in tasca','t.body':'Ogni acquirente di Villa Oliva riceve l\'accesso a VillaTracker, l\'app per seguire la costruzione della propria villa dal telefono, ovunque si trovi: avanzamento reale, foto di cantiere, cronoprogramma e documenti. Aggiornamento settimanale.',
+'t.1':'Avanzamento reale','t.1s':'Percentuale per fasi e prossimo traguardo, a colpo d\'occhio.','t.2':'Report fotografici','t.2s':'Report settimanale dell\'impresa con documentazione fotografica.','t.3':'Cronoprogramma e avvisi','t.3s':'Fasi con date e avviso automatico se cambia una scadenza.','t.4':'Verbali e documenti','t.4s':'Ispezioni, verbali e finiture concordate, sempre a portata di mano.',
+'t.ph1':'Fasi completate','t.ph2':'In corso · Struttura','t.ph3':'Settimana di cantiere n. 8','t.ph4':'Prossimo traguardo','t.ph5':'Getto della soletta di copertura · settimana 10','t.ph6':'Verbale di riunione · finiture','t.ph7':'Selezione del travertino · concordata','t.ill':'Schermate illustrative',
+'st.eyebrow':'Architettura','st.title':'Progetto, permessi ed esecuzione','st.body':'GSB Guerrero-Strachan & Braun è uno studio di architettura con progetti nella Repubblica Dominicana, in Spagna e negli Emirati Arabi Uniti. Accompagniamo ogni progetto dall\'inizio alla fine: progetto, permessi ed esecuzione.',
+'c.eyebrow':'Contatti','c.title':'Informazioni e visite','c.body':'Scrivici e ti invieremo il dossier completo di Villa Oliva, con piante, finiture e condizioni.','c.role':'Architetto',
+'f.name':'Nome','f.email':'E-mail','f.phone':'Telefono','f.country':'Paese','f.msg':'Messaggio','f.msgph':'Vorrei ricevere il dossier di Villa Oliva…','f.send':'Richiedi il dossier',
+'sent':'Grazie. Ti risponderemo a breve all\'indirizzo indicato. Puoi anche scrivere direttamente a estudio@miguelbraun.com.',
+'ft.note':'Immagini non contrattuali'
+},
+ru:{
+'nav.villa':'Вилла','nav.spaces':'Пространства','nav.program':'Планы','nav.materials':'Материалы','nav.location':'Расположение','nav.contact':'Контакты',
+'hero.eyebrow':'Кап-Кана · Доминиканская Республика','hero.sub':'Средиземноморская классика на Карибах','hero.plot':'Участок','hero.beds':'Спален с ванной','hero.pool':'Бассейн','hero.levels':'Уровня','hero.scroll':'Смотреть',
+'intro.eyebrow':'Проект','intro.title':'Камень, свет и пропорция','intro.lead':'Вилла Олива приносит средиземноморскую классику на Карибы: два объёма, облицованных травертином, соединены большим остеклённым центральным павильоном двойной высоты в обрамлении стройных колонн.','intro.body':'Частная двухуровневая резиденция в районе Эль-Парке в Кап-Кане, полностью раскрытая к саду, бассейну и свету. Шесть спален с ванными, кинозал, кухня с островом и подсобной кухней, гостевая спальня на первом этаже и открытые пространства, задуманные как полноценные комнаты.',
+'facts.eyebrow':'Характеристики','facts.plot':'м² участка','facts.beds':'Спален с ванной','facts.baths':'Ванных + гостевой санузел','facts.living':'м² гостиная-столовая','facts.pool':'м² бассейн','facts.parking':'Крытых парковочных места',
+'gal.eyebrow':'Пространства','gal.title':'Жизнь, обращённая к бассейну','gal.body':'Гостиная, столовая и спальни открываются на террасу и бассейн через большие стеклянные панели.',
+'cap.living':'Гостиная двойной высоты','cap.kitchen':'Кухня с островом из травертина','cap.suite':'Главная спальня','cap.pool':'Бассейн и терраса','cap.bath':'Столовая у сада','cap.firepit':'Открытая гостиная с очагом',
+'ph.hero':'Визуализация · вид спереди','ph.rear':'Визуализация · вид сзади','ph.living':'Визуализация · гостиная','ph.kitchen':'Визуализация · кухня','ph.suite':'Визуализация · спальня','ph.pool':'Визуализация · бассейн','ph.bath':'Визуализация · столовая','ph.firepit':'Визуализация · очаг','ph.planPB':'План уровня 1','ph.planP1':'План уровня 2',
+'band.quote':'Травертин, известковая штукатурка и дуб под светлым двойным объёмом.','band.sub':'Общая зона · гостиная двойной высоты',
+'prog.eyebrow':'Программа','prog.title':'Два уровня, один открытый дом','prog.body':'Первый этаж — для общения и жизни на воздухе; второй — для отдыха, все спальни с собственными ванными и двойной высотой над гостиной.','prog.l1':'Уровень 1','prog.l2':'Уровень 2',
+'r.living':'Гостиная-столовая','r.cinema':'Кинозал','r.kitchen':'Кухня','r.back':'Подсобная кухня','r.pantry':'Кладовая','r.powder':'Гостевой санузел','r.staff':'Комната персонала','r.staffbath':'Ванная персонала','r.carport':'Навес · 2 автомобиля','r.pool':'Бассейн','r.note1':'Включает гостевую спальню с ванной, крытую уличную столовую и открытую гостиную с очагом.',
+'r.b5':'Спальня 5','r.b5bath':'Ванная 5','r.bcloset':'Спальня с гардеробной','r.b3':'Спальня 3','r.b3bath':'Ванная 3','r.b2':'Спальня 2','r.b2bath':'Ванная 2','r.note2':'Пятая спальня с ванной завершает этаж. Все спальни с собственными ванными; двойная высота над гостиной.',
+'mat.eyebrow':'Интерьер','mat.title':'Палитра и материалы','sw.trav':'Травертин','sw.lime':'Известняк','sw.plaster':'Известковая штукатурка','sw.oak':'Натуральный дуб','sw.bronze':'Состаренная бронза','sw.olive':'Оливковый',
+'ml.1':'Травертин в полах и облицовке','ml.2':'Известковая штукатурка на стенах','ml.3':'Натуральный лён и небелёный букле','ml.4':'Столярные изделия из натурального дуба','ml.5':'Смесители из матовой бронзы','ml.6':'Светильники из алебастра',
+'k.eyebrow':'Кухня','k.title':'Сердце дома','k.body':'Открытая кухня 40 м² с центральным островом из травертина, дополненная подсобной кухней и кладовой. Натуральный дуб, камень и тёплый встроенный свет, с прямым выходом в сад.',
+'s.eyebrow':'Спальни','s.title':'Личное убежище','s.body':'Спальни с собственными ванными в травертине, отдельностоящей ванной, душем с естественным светом и гардеробной из дуба на заказ.',
+'o.eyebrow':'Экстерьер','o.title':'Улица как ещё одна комната','o.1':'Бассейн ≈ 72 м²','o.1s':'С мелководной зоной отдыха','o.2':'Открытая гостиная с очагом','o.2s':'Заглублённая, у сада','o.3':'Крытая уличная столовая','o.3s':'В тени колонн','o.4':'Средиземноморско-тропический сад','o.4s':'Оливы, пальмы и травы','o.5':'Кинозал','o.5s':'64 м² на первом этаже','o.6':'Гостевая спальня','o.6s':'Отдельная, на первом этаже',
+'loc.eyebrow':'Расположение','loc.title':'Кап-Кана, район Эль-Парке','loc.body':'Закрытый посёлок с круглосуточной охраной в сердце самого престижного жилого направления востока Доминиканской Республики.',
+'poi.1':'Международный аэропорт Пунта-Кана','poi.2':'Марина Кап-Кана','poi.3':'Гольф-клуб Punta Espada · Джек Никлаус','poi.4':'Пляж Хуанильо','poi.5':'Закрытый посёлок · охрана 24 ч',
+'u.eyebrow':'Коммуникации и инфраструктура','u.title':'Собственная инфраструктура Кап-Каны','u.1':'Питьевая вода','u.1s':'Поставка Acuatur из глубоких скважин более чем в 13 км от берега, с резервуарами ~18 000 м³ в сутки.','u.2':'Электроэнергия','u.2s':'Поставка Cenetur с высокоэффективной генерацией и солнечной поддержкой. Подземная распределительная сеть.','u.3':'Канализация','u.3s':'Насосная сеть к аэробным очистным сооружениям; очищенная вода используется для полива.','u.4':'Отходы','u.4s':'Сортировка, переработка и лицензированный вывоз в соответствии с экологическими программами Кап-Каны.',
+'t.eyebrow':'Сервис для покупателя · VillaTracker','t.title':'Ваши инвестиции — в вашем кармане','t.body':'Каждый покупатель виллы Олива получает доступ к VillaTracker — приложению, позволяющему следить за строительством виллы с телефона, где бы вы ни были: реальный прогресс, фото со стройки, график и документы. Еженедельные обновления.',
+'t.1':'Реальный ход работ','t.1s':'Процент по этапам и ближайшая веха — с первого взгляда.','t.2':'Фотоотчёты','t.2s':'Еженедельный отчёт подрядчика с фотофиксацией.','t.3':'График и уведомления','t.3s':'Этапы с датами и автоматическое уведомление при изменении сроков.','t.4':'Протоколы и документы','t.4s':'Инспекции, протоколы и согласованная отделка — всегда под рукой.',
+'t.ph1':'Этапов завершено','t.ph2':'В работе · Каркас','t.ph3':'Неделя строительства № 8','t.ph4':'Следующая веха','t.ph5':'Заливка плиты кровли · неделя 10','t.ph6':'Протокол встречи · отделка','t.ph7':'Выбор травертина · согласовано','t.ill':'Иллюстративные экраны',
+'st.eyebrow':'Архитектура','st.title':'Проектирование, согласования и строительство','st.body':'GSB Guerrero-Strachan & Braun — архитектурное бюро с проектами в Доминиканской Республике, Испании и ОАЭ. Мы сопровождаем каждый проект от начала до конца: проектирование, согласования и строительство.',
+'c.eyebrow':'Контакты','c.title':'Информация и просмотры','c.body':'Напишите нам, и мы вышлем полное досье виллы Олива с планами, отделкой и условиями.','c.role':'Архитектор',
+'f.name':'Имя','f.email':'Эл. почта','f.phone':'Телефон','f.country':'Страна','f.msg':'Сообщение','f.msgph':'Хочу получить досье виллы Олива…','f.send':'Запросить досье',
+'sent':'Спасибо. Мы скоро ответим на указанный адрес. Вы также можете написать напрямую на estudio@miguelbraun.com.',
+'ft.note':'Изображения не являются офертой'
+}
+};
+Object.entries({"es": {"dn.eyebrow": "Del día a la noche", "dn.title": "La misma casa, dos luces", "dn.day": "Día", "dn.night": "Noche", "band2.quote": "Olivos, piedra y fuego: las noches de Cap Cana se viven fuera.", "band2.sub": "Salón exterior con fire pit", "plan.hint": "Pasa el dedo por una estancia", "hs.outdining": "Comedor exterior porticado", "hs.firepit": "Salón exterior · fire pit", "hs.guest": "Suite de invitados", "hs.stairs": "Escalera", "hs.bath": "Baño", "hs.sitting": "Estar", "hs.dressing": "Vestidor", "hs.void": "Doble altura sobre el salón", "hs.terrace": "Terraza"}, "en": {"dn.eyebrow": "From day to night", "dn.title": "One house, two lights", "dn.day": "Day", "dn.night": "Night", "band2.quote": "Olive trees, stone and fire: Cap Cana nights are lived outdoors.", "band2.sub": "Fire-pit lounge", "plan.hint": "Hover or tap a room", "hs.outdining": "Covered outdoor dining", "hs.firepit": "Fire-pit lounge", "hs.guest": "Guest suite", "hs.stairs": "Staircase", "hs.bath": "Bathroom", "hs.sitting": "Sitting area", "hs.dressing": "Dressing room", "hs.void": "Double-height void over living room", "hs.terrace": "Terrace"}, "fr": {"dn.eyebrow": "Du jour à la nuit", "dn.title": "Une maison, deux lumières", "dn.day": "Jour", "dn.night": "Nuit", "band2.quote": "Oliviers, pierre et feu : les nuits de Cap Cana se vivent dehors.", "band2.sub": "Salon extérieur avec foyer", "plan.hint": "Survolez ou touchez une pièce", "hs.outdining": "Salle à manger extérieure couverte", "hs.firepit": "Salon extérieur · foyer", "hs.guest": "Suite d'invités", "hs.stairs": "Escalier", "hs.bath": "Salle de bains", "hs.sitting": "Coin salon", "hs.dressing": "Dressing", "hs.void": "Double hauteur sur le séjour", "hs.terrace": "Terrasse"}, "pt": {"dn.eyebrow": "Do dia à noite", "dn.title": "A mesma casa, duas luzes", "dn.day": "Dia", "dn.night": "Noite", "band2.quote": "Oliveiras, pedra e fogo: as noites de Cap Cana vivem-se lá fora.", "band2.sub": "Sala exterior com fire pit", "plan.hint": "Passe o dedo por uma divisão", "hs.outdining": "Zona de refeições exterior coberta", "hs.firepit": "Sala exterior · fire pit", "hs.guest": "Suíte de hóspedes", "hs.stairs": "Escada", "hs.bath": "Casa de banho", "hs.sitting": "Zona de estar", "hs.dressing": "Closet", "hs.void": "Pé-direito duplo sobre a sala", "hs.terrace": "Terraço"}, "de": {"dn.eyebrow": "Vom Tag zur Nacht", "dn.title": "Ein Haus, zwei Lichter", "dn.day": "Tag", "dn.night": "Nacht", "band2.quote": "Oliven, Stein und Feuer: die Nächte von Cap Cana spielen sich draußen ab.", "band2.sub": "Außenlounge mit Feuerstelle", "plan.hint": "Raum berühren oder überfahren", "hs.outdining": "Überdachter Außenessbereich", "hs.firepit": "Außenlounge · Feuerstelle", "hs.guest": "Gästesuite", "hs.stairs": "Treppe", "hs.bath": "Bad", "hs.sitting": "Sitzbereich", "hs.dressing": "Ankleide", "hs.void": "Luftraum über dem Wohnzimmer", "hs.terrace": "Terrasse"}, "it": {"dn.eyebrow": "Dal giorno alla notte", "dn.title": "Una casa, due luci", "dn.day": "Giorno", "dn.night": "Notte", "band2.quote": "Ulivi, pietra e fuoco: le notti di Cap Cana si vivono all'aperto.", "band2.sub": "Salotto esterno con braciere", "plan.hint": "Sfiora o tocca una stanza", "hs.outdining": "Sala da pranzo esterna coperta", "hs.firepit": "Salotto esterno · braciere", "hs.guest": "Suite per gli ospiti", "hs.stairs": "Scala", "hs.bath": "Bagno", "hs.sitting": "Zona relax", "hs.dressing": "Cabina armadio", "hs.void": "Doppia altezza sul soggiorno", "hs.terrace": "Terrazza"}, "ru": {"dn.eyebrow": "От дня к ночи", "dn.title": "Один дом, два света", "dn.day": "День", "dn.night": "Ночь", "band2.quote": "Оливы, камень и огонь: ночи Кап-Каны проходят под открытым небом.", "band2.sub": "Открытая гостиная с очагом", "plan.hint": "Наведите или коснитесь комнаты", "hs.outdining": "Крытая уличная столовая", "hs.firepit": "Открытая гостиная · очаг", "hs.guest": "Гостевая спальня", "hs.stairs": "Лестница", "hs.bath": "Ванная", "hs.sitting": "Зона отдыха", "hs.dressing": "Гардеробная", "hs.void": "Двойная высота над гостиной", "hs.terrace": "Терраса"}}).forEach(([l,d])=>Object.assign(T[l],d));
+T.es.sent='Gracias. Te responderemos en breve a la dirección indicada. También puedes escribir directamente a estudio@miguelbraun.com.';
+
+const ORIG={};
+document.querySelectorAll('[data-i18n]').forEach(el=>{ORIG[el.dataset.i18n]=ORIG[el.dataset.i18n]||el.innerHTML});
+document.querySelectorAll('[data-i18n-ph]').forEach(el=>{ORIG[el.dataset.i18nPh]=el.placeholder});
+let cur='es';
+function setLang(l){
+  cur=l; const d=T[l]||{};
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;el.innerHTML=d[k]!==undefined?d[k]:ORIG[k]});
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{const k=el.dataset.i18nPh;el.placeholder=d[k]!==undefined?d[k]:ORIG[k]});
+  document.documentElement.lang=l; document.getElementById('langCur').textContent=l.toUpperCase();
+  document.querySelectorAll('#langList li').forEach(li=>li.classList.toggle('on',li.dataset.l===l));
+  try{localStorage.setItem('vo-lang',l)}catch(e){}
+}
+const list=document.getElementById('langList');
+Object.entries(LANGS).forEach(([k,v])=>{const li=document.createElement('li');li.dataset.l=k;li.innerHTML=`<span>${v}</span><span style="opacity:.5">${k.toUpperCase()}</span>`;li.onclick=()=>{setLang(k);lang.classList.remove('open')};list.appendChild(li)});
+const lang=document.getElementById('lang');
+document.getElementById('langBtn').onclick=e=>{e.stopPropagation();lang.classList.toggle('open')};
+document.addEventListener('click',()=>lang.classList.remove('open'));
+let saved=null; try{saved=localStorage.getItem('vo-lang')}catch(e){}
+if(!saved){const n=(navigator.language||'es').slice(0,2).toLowerCase(); if(LANGS[n]) saved=n;}
+setLang(saved||'es');
+
+/* nav */
+const nav=document.getElementById('nav');
+const onScroll=()=>nav.classList.toggle('solid',window.scrollY>60);
+window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+const mob=document.getElementById('mobile');
+document.getElementById('burger').onclick=()=>mob.classList.add('open');
+document.getElementById('mx').onclick=()=>mob.classList.remove('open');
+mob.querySelectorAll('a').forEach(a=>a.onclick=()=>mob.classList.remove('open'));
+
+/* tabs */
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));
+  const t=b.dataset.tab;
+  document.getElementById('l1').classList.toggle('on',t==='l1');document.getElementById('l2').classList.toggle('on',t==='l2');
+  document.getElementById('p-l1').classList.toggle('on',t==='l1');document.getElementById('p-l2').classList.toggle('on',t==='l2');
+});
+
+/* reveal */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+/* form */
+document.getElementById('form').addEventListener('submit',e=>{
+  e.preventDefault();
+  const s=document.getElementById('sent'); s.textContent=(T[cur]&&T[cur].sent)||T.es.sent; s.style.display='block';
+  e.target.style.display='none';
+});
+
+/* images: when real files exist under img/<key>.jpg they replace the placeholders */
+const IMG={hero:'img/hero.jpg',rear:'img/rear.jpg',living:'img/living.jpg',kitchen:'img/kitchen.jpg',kitchen2:'img/kitchen.jpg',suite:'img/suite.jpg',suite2:'img/suite.jpg',pool:'img/pool.jpg',bath:'img/dining.jpg',firepit:'img/firepit.jpg',planPB:'img/plan-pb.jpg',planP1:'img/plan-p1.jpg',aerial:'img/aerial.jpg'};
+document.querySelectorAll('[data-img]').forEach(box=>{
+  const src=IMG[box.dataset.img]; if(!src) return;
+  const im=new Image(); im.onload=()=>{const ph=box.querySelector('.ph'); if(ph) ph.remove(); im.alt='Villa Oliva'; box.prepend(im);}; im.src=src;
+});
+
+/* ===== immersive JS ===== */
+// hero night layer + toggle
+(function(){const hero=document.getElementById('top');const media=hero.querySelector('.media');
+ const n=new Image();n.className='night';n.alt='';n.src=media.dataset.night;n.onload=()=>media.appendChild(n);
+ hero.querySelectorAll('.daynight button').forEach(b=>b.onclick=()=>{hero.classList.toggle('night',b.dataset.mode==='night');hero.querySelectorAll('.daynight button').forEach(x=>x.classList.toggle('on',x===b))});
+ // auto preview of night after a while, once
+ let done=false;window.addEventListener('scroll',()=>{if(!done&&window.scrollY>80){done=true}},{passive:true});
+ setTimeout(()=>{if(!done&&!hero.classList.contains('night')){hero.querySelector('[data-mode=night]').click();setTimeout(()=>{if(window.scrollY<80)hero.querySelector('[data-mode=day]').click()},5000)}},7000);
+})();
+// comparator
+(function(){const c=document.getElementById('cmp');if(!c)return;let drag=false;
+ const set=e=>{const r=c.getBoundingClientRect();const x=((e.touches?e.touches[0].clientX:e.clientX)-r.left)/r.width;c.style.setProperty('--x',Math.max(2,Math.min(98,x*100))+'%')};
+ c.addEventListener('pointerdown',e=>{drag=true;set(e)});window.addEventListener('pointermove',e=>{if(drag)set(e)});window.addEventListener('pointerup',()=>drag=false);
+})();
+// parallax bands
+(function(){const bands=[...document.querySelectorAll('.px')];bands.forEach(b=>b.querySelector('.bg').style.backgroundImage=`url(${b.dataset.px})`);
+ const tick=()=>{const vh=innerHeight;bands.forEach(b=>{const r=b.getBoundingClientRect();if(r.bottom<0||r.top>vh)return;const p=(r.top+r.height/2-vh/2)/vh;b.querySelector('.bg').style.transform=`translateY(${p*-14}%)`})};
+ addEventListener('scroll',tick,{passive:true});addEventListener('resize',tick);tick();
+})();
+// lightbox
+(function(){const lb=document.getElementById('lb'),im=document.getElementById('lbimg'),cap=document.getElementById('lbc');let items=[],i=0;
+ const collect=()=>{items=[...document.querySelectorAll('.mosaic .frame img, .feature .frame img, .intro .frame img')].map(x=>({src:x.src,cap:(x.closest('.frame').querySelector('.cap')||{}).textContent||''}))};
+ const show=k=>{collect();i=(k+items.length)%items.length;im.src=items[i].src;cap.textContent=items[i].cap;lb.classList.add('open')};
+ document.addEventListener('click',e=>{const img=e.target.closest('.mosaic .frame img, .feature .frame img, .intro .frame img');if(img){collect();show(items.findIndex(x=>x.src===img.src))}});
+ lb.querySelector('.x').onclick=()=>lb.classList.remove('open');lb.querySelector('.p').onclick=()=>show(i-1);lb.querySelector('.n').onclick=()=>show(i+1);
+ lb.addEventListener('click',e=>{if(e.target===lb)lb.classList.remove('open')});
+ addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;if(e.key==='Escape')lb.classList.remove('open');if(e.key==='ArrowLeft')show(i-1);if(e.key==='ArrowRight')show(i+1)});
+})();
+// plan hotspots <-> room list
+(function(){const all=k=>document.querySelectorAll(`[data-room="${k}"]`);
+ document.querySelectorAll('[data-room]').forEach(el=>{const k=el.dataset.room;
+  el.addEventListener('mouseenter',()=>all(k).forEach(x=>x.classList.add('on')));
+  el.addEventListener('mouseleave',()=>all(k).forEach(x=>x.classList.remove('on')));
+  el.addEventListener('click',()=>{const on=el.classList.contains('on')&&el.classList.contains('hs');document.querySelectorAll('[data-room].on').forEach(x=>x.classList.remove('on'));if(!on)all(k).forEach(x=>x.classList.add('on'))});
+ });
+})();
+</script>
+</body>
+</html>
