@@ -326,15 +326,15 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .tracker .steps b{color:var(--white)}
 .tracker .steps span{color:var(--trav);opacity:.8}
 .tr-phones{background:#5A4634;position:relative;overflow:hidden;min-height:640px;perspective:1600px;perspective-origin:50% 45%;background-image:radial-gradient(ellipse at 50% 110%,rgba(201,105,74,.35),transparent 60%)}
-.p3d{position:absolute;top:50%;width:min(42%,300px);aspect-ratio:1362/2652;transform-style:preserve-3d;will-change:transform}
-.p3d.ph1{left:12%}.p3d.ph2{right:10%}
+.p3d{position:absolute;width:min(44%,320px);aspect-ratio:1362/2652;transform-style:preserve-3d;will-change:transform}
+.p3d.ph1{left:12%;top:7%}.p3d.ph2{right:9%;top:21%}
 .p3d-body{position:absolute;inset:0;transform-style:preserve-3d}
 .p3d-body img{position:absolute;inset:0;width:100%;height:100%;display:block;border-radius:12%/6%;transform:translateZ(0)}
 .p3d-body i{position:absolute;inset:0;border-radius:12%/6%;background:#1c1916;}
 .p3d-body i:nth-child(1){transform:translateZ(-2px)}.p3d-body i:nth-child(2){transform:translateZ(-4px)}.p3d-body i:nth-child(3){transform:translateZ(-6px)}.p3d-body i:nth-child(4){transform:translateZ(-8px)}.p3d-body i:nth-child(5){transform:translateZ(-10px);background:#2a2520}.p3d-body i:nth-child(6){transform:translateZ(-12px);background:#2a2520}
 .p3d-sh{position:absolute;left:5%;right:5%;top:92%;height:14%;border-radius:50%;background:rgba(0,0,0,.55);filter:blur(28px);transform:translateZ(-60px) scale(1.1)}
 .tr-glow{position:absolute;left:50%;top:55%;width:60%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(201,105,74,.45),transparent 65%);transform:translate(-50%,-50%);filter:blur(10px);pointer-events:none}
-@media(max-width:900px){.tr-grid{grid-template-columns:1fr}.tr-text{padding:72px 32px}.tr-phones{min-height:700px;perspective:1100px}.p3d{width:48%}.p3d.ph1{left:3%}.p3d.ph2{right:3%}}
+@media(max-width:900px){.tr-grid{grid-template-columns:1fr}.tr-text{padding:72px 32px}.tr-phones{min-height:720px;perspective:1100px}.p3d{width:50%}.p3d.ph1{left:3%;top:5%}.p3d.ph2{right:3%;top:24%}}
 
 /* ===== ERA-style scroll effects ===== */
 .pin-hero{height:230svh;position:relative}
@@ -1108,22 +1108,21 @@ document.querySelectorAll('[data-img]').forEach(box=>{
  addEventListener('scroll',t,{passive:true});t();
  document.getElementById('actGallery').onclick=()=>{const first=document.querySelector('.mosaic .frame img');if(first)first.click();else location.hash='#spaces'};
 })();
-// VillaTracker phones: scroll-driven 3D rotation (continuous while visible)
+// VillaTracker phones: 3D rotation driven by scroll + idle motion
 (function(){const box=document.querySelector('.tr-phones');if(!box)return;const a=box.querySelector('.ph1'),b=box.querySelector('.ph2');
- const clamp=(v,x,y)=>Math.max(x,Math.min(y,v));let cur=0,target=0,raf=null;
- function compute(){const r=box.getBoundingClientRect();const vh=innerHeight;target=clamp((vh-r.top)/(vh+r.height),0,1)}
- function render(){cur+=(target-cur)*.12;const p=cur;
-  const e=1-Math.pow(1-clamp(p/.5,0,1),3);const d=p-.5;
-  const ry1=38-76*p, ry2=-44+88*p;                       // big visible rotation
-  a.style.transform=`translateY(calc(-50% + ${(1-e)*220 - d*90}px)) translateX(${(1-e)*-60}px) rotateY(${ry1}deg) rotateZ(${-7+5*p}deg) rotateX(${d*8}deg)`;
-  b.style.transform=`translateY(calc(-50% + ${(1-e)*280 + d*70}px)) translateX(${(1-e)*60}px) rotateY(${ry2}deg) rotateZ(${6-4*p}deg) rotateX(${d*-7}deg) translateZ(60px)`;
-  a.style.opacity=b.style.opacity=clamp(e*1.5,0,1);
-  if(Math.abs(target-cur)>.0005)raf=requestAnimationFrame(render);else raf=null;
+ const clamp=(v,x,y)=>Math.max(x,Math.min(y,v));let cur=0,target=0,t0=performance.now(),visible=false;
+ function compute(){const r=box.getBoundingClientRect();const vh=innerHeight;target=clamp((vh-r.top)/(vh+r.height),0,1);visible=r.bottom>0&&r.top<vh}
+ function frame(now){compute();cur+=(target-cur)*.1;const p=cur,t=(now-t0)/1000;
+  if(visible){
+   const e=1-Math.pow(1-clamp(p/.45,0,1),3);const d=p-.5;
+   const idle1=Math.sin(t*.9)*6, idle2=Math.cos(t*.8+1)*6, bob1=Math.sin(t*1.1)*6, bob2=Math.cos(t*1.0)*6;
+   a.style.transform=`translate3d(${(1-e)*-80}px,${(1-e)*200 - d*80 + bob1}px,0) rotateY(${30-60*p+idle1}deg) rotateZ(${-4-2*p}deg) rotateX(${d*8+Math.sin(t*.7)*2}deg)`;
+   b.style.transform=`translate3d(${(1-e)*80}px,${(1-e)*260 + d*60 + bob2}px,70px) rotateY(${-34+68*p+idle2}deg) rotateZ(${3+2*p}deg) rotateX(${d*-7+Math.cos(t*.6)*2}deg)`;
+   a.style.opacity=b.style.opacity=clamp(e*1.5,0,1);
+  }
+  requestAnimationFrame(frame);
  }
- const kick=()=>{compute();if(!raf)raf=requestAnimationFrame(render)};
- addEventListener('scroll',kick,{passive:true});addEventListener('resize',kick);setTimeout(()=>{compute();cur=target;kick()},100);
- // also keep ticking while the section is on screen (iOS momentum scroll)
- setInterval(()=>{const r=box.getBoundingClientRect();if(r.bottom>0&&r.top<innerHeight)kick()},120);
+ requestAnimationFrame(frame);
 })();
 // count-up
 (function(){const els=[...document.querySelectorAll('[data-count]')];if(!els.length)return;
