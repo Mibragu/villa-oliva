@@ -342,10 +342,16 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .hero .media img{animation:none;transform-origin:50% 55%;will-change:transform}
 .hero .media .night{transition:none}
 .hero-words{position:absolute;inset:0;pointer-events:none;overflow:hidden}
-.hero-words span{position:absolute;font-family:var(--serif);font-weight:300;font-size:clamp(64px,13vw,220px);line-height:.9;letter-spacing:-.01em;text-transform:uppercase;color:var(--white);opacity:0;transform:translateY(40px);will-change:transform,opacity;text-shadow:0 2px 30px rgba(0,0,0,.25)}
+.hero-words>span{position:absolute;font-family:var(--serif);font-weight:300;font-size:clamp(64px,13vw,220px);line-height:.9;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap;filter:drop-shadow(0 6px 24px rgba(0,0,0,.45)) drop-shadow(0 1px 2px rgba(0,0,0,.4))}
 .hero-words .w1{left:4vw;top:10vh}
-.hero-words .w2{right:6vw;top:34vh;color:var(--oak);font-style:italic}
+.hero-words .w2{right:6vw;top:34vh;font-style:italic}
 .hero-words .w3{left:4vw;bottom:8vh;font-size:clamp(44px,9vw,150px)}
+.hero-words .ch{position:static;display:inline-block;opacity:0;transform:translateY(.6em) rotateX(60deg);transform-origin:50% 100%;will-change:transform,opacity;
+  background:linear-gradient(180deg,#FFFDF9 0%,#F1E8D8 55%,#CDB999 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.hero-words .w2 .ch{background:linear-gradient(180deg,#F3D9B8 0%,#D9A772 50%,#9E6E3E 100%);-webkit-background-clip:text;background-clip:text}
+.hero-words .ch.on{opacity:1;transform:none}
+.hero-words .ul{position:absolute;left:0;bottom:-.06em;height:2px;width:0;background:linear-gradient(90deg,var(--oak),transparent);transition:width .9s cubic-bezier(.2,.7,.2,1)}
+.hero-words>span.done .ul{width:100%}
 .hero .wrap,.hero .scroll,.hero .daynight{transition:opacity .4s}
 .hero.words .wrap,.hero.words .scroll{opacity:0;pointer-events:none}
 /* grow (clip-path based, smooth) */
@@ -381,7 +387,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .pill-main{background:var(--ink);color:var(--plaster);display:flex;align-items:center;gap:10px;padding:16px 30px;font-size:12px;box-shadow:0 16px 40px rgba(43,38,32,.3)}.pill-main:hover{background:var(--bronze)}
 .pill{background:rgba(246,241,233,.85);backdrop-filter:blur(12px);border:1px solid rgba(43,38,32,.15);color:var(--ink);font:inherit;font-size:11px;letter-spacing:.22em;text-transform:uppercase;padding:13px 22px;border-radius:999px;cursor:pointer;transition:background .2s,color .2s;box-shadow:0 10px 30px rgba(43,38,32,.12)}
 .pill:hover{background:var(--ink);color:var(--plaster)}
-@media(max-width:900px){.actions{bottom:14px;width:calc(100% - 28px);justify-content:center}.pill{padding:12px 14px;font-size:10px;letter-spacing:.16em}.hero-words .w2{top:28vh}.hero-words .w3{bottom:18vh}.daynight{bottom:150px!important;right:14px!important}}
+@media(max-width:900px){.actions{bottom:14px;width:calc(100% - 28px);justify-content:center}.pill{padding:12px 14px;font-size:10px;letter-spacing:.16em}.hero-words .w2{top:28vh}.hero-words .w3{bottom:22vh;font-size:clamp(40px,11vw,150px)}.hero-words .w2{top:30vh}.daynight{bottom:84px!important;right:14px!important}}
 
 .prog-head{max-width:62ch;margin-bottom:56px}
 .level{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center;margin-bottom:72px}
@@ -1008,7 +1014,7 @@ function setLang(l){
   cur=l; const d=T[l]||{};
   document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;el.innerHTML=d[k]!==undefined?d[k]:ORIG[k]});
   document.querySelectorAll('[data-i18n-ph]').forEach(el=>{const k=el.dataset.i18nPh;el.placeholder=d[k]!==undefined?d[k]:ORIG[k]});
-  document.documentElement.lang=l; document.getElementById('langCur').textContent=l.toUpperCase();
+  document.documentElement.lang=l; document.getElementById('langCur').textContent=l.toUpperCase(); document.dispatchEvent(new Event('vo-lang'));
   document.querySelectorAll('#langList li').forEach(li=>li.classList.toggle('on',li.dataset.l===l));
   try{localStorage.setItem('vo-lang',l)}catch(e){}
 }
@@ -1069,6 +1075,8 @@ document.querySelectorAll('[data-img]').forEach(box=>{
  let manual=null;
  hero.querySelectorAll('.daynight button').forEach(b=>b.onclick=()=>{manual=b.dataset.mode;hero.querySelectorAll('.daynight button').forEach(x=>x.classList.toggle('on',x===b));tick()});
  const words=[...hero.querySelectorAll('.hero-words span')];
+ words.forEach(w=>{const t=w.textContent;w.innerHTML=[...t].map(c=>`<span class="ch">${c===' '?'&nbsp;':c}</span>`).join('')+'<i class="ul"></i>';});
+ document.addEventListener('vo-lang',()=>{words.forEach(w=>{const t=w.textContent;w.innerHTML=[...t].map(c=>`<span class="ch">${c===' '?'&nbsp;':c}</span>`).join('')+'<i class="ul"></i>'})});
  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
  function tick(){const r=pin.getBoundingClientRect();const total=pin.offsetHeight-innerHeight;const p=clamp(-r.top/total,0,1);
   const day=media.querySelector('img:not(.night)');const night=media.querySelector('.night');
@@ -1076,7 +1084,7 @@ document.querySelectorAll('[data-img]').forEach(box=>{
   if(night)night.style.opacity=nightAmt;
   const s=1+p*.14; media.querySelectorAll('img').forEach(i=>i.style.transform=`scale(${s}) translateY(${-p*3}%)`);
   hero.classList.toggle('words',p>.22);
-  words.forEach((w,i)=>{const a=clamp((p-(.28+i*.14))/.14,0,1);const out=clamp((p-.92)/.08,0,1);w.style.opacity=a*(1-out);w.style.transform=`translateY(${(1-a)*40}px)`});
+  words.forEach((w,i)=>{const a=clamp((p-(.26+i*.15))/.16,0,1);const out=clamp((p-.93)/.07,0,1);const chs=w.querySelectorAll('.ch');const n=chs.length;chs.forEach((c,k)=>c.classList.toggle('on',a>=(k+1)/(n+1)));w.classList.toggle('done',a>=1);w.style.opacity=1-out;});
   if(manual&&p<.05){/* keep manual state at top */}
  }
  addEventListener('scroll',()=>requestAnimationFrame(tick),{passive:true});addEventListener('resize',tick);setTimeout(tick,50);
